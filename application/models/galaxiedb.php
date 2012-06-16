@@ -17,5 +17,11 @@ class Galaxiedb extends CI_Model {
         $query = $this->db->get('artists');
         return $query->result();
     }
+    
+    function get_discography() {
+        $query = '';
+        
+        
+    }
 
 }
