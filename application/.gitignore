@@ -3,6 +3,8 @@
 *.lock
 *.swp
 *.out
+# Lock files used by the Emacs editor.
+\#*
 
 ## OS generated files 
 .DS_Store
