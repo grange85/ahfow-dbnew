@@ -1,0 +1,25 @@
+## Generic files
+*~
+*.lock
+*.swp
+*.out
+# Lock files used by the Emacs editor.
+\#*
+
+## OS generated files 
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+## Codeigniter files
+*/config/database.php
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
