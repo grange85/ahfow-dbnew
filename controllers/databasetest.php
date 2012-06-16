@@ -15,6 +15,7 @@ class Databasetest extends CI_Controller {
         $this->load->model('Galaxiedb');
         $data['artists']=$this->Galaxiedb->get_artists();
         $head_data['url']=  base_url();
+//        $head_data['static']= STATIC_HOST;
         $head_data['props']['title']='A Head Full of Wishes';
         $this->load->view('wrapper/header', $head_data);
         $this->load->view('artists', $data);
