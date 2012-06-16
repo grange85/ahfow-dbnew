@@ -17,7 +17,7 @@ ehthumbs.db
 Thumbs.db
 
 ## Codeigniter files
-*/config/database.*
+*/config/database.php
 */config/development
 */logs/log-*.php
 */logs/!index.html
