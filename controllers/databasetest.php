@@ -1,10 +1,9 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 
-class Databasetest extends CI_Controller {
+class Databasetest extends MY_Controller {
     
-    private $head_data = array();
-    
+  
     function __construct() {
         parent::__construct();
     }
