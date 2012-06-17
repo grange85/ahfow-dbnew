@@ -46,5 +46,7 @@ if (ENVIRONMENT == 'production') {
     define('STATIC_HOST', 'http://fullofwishes-static.dev');
 }
 
+define('JQUERY_LIBRARY', 'jquery-1.7.2.min.js');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
