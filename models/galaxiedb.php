@@ -18,10 +18,13 @@ class Galaxiedb extends CI_Model {
         return $query->result();
     }
     
-    function get_discography() {
+    function get_discography($artist_id = null) {
         $query = '';
-        
         
     }
 
+    
+    function get_volumes($artist_id, $category){
+        
+    }
 }
