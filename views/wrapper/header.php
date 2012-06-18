@@ -14,8 +14,9 @@
     <body>
         <div id="outer_container">
             <div id="inner_container">
-                <div id="header">
-                    <h1><?php echo $props['shorttitle']; ?></h1>
+                <div id="header" class="clearfix">
+                    <h1><?php echo SITE_NAME; ?></h1>
+                    <h2><?php echo $props['shorttitle']; ?></h2>
                 </div>
                 <div id="content_wrap" class="clearfix">
 

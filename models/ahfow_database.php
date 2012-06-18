@@ -1,11 +1,16 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * A Head Full of Wishes database access class
+ *
+ * This class creates, reads, updates and deletes content from the 
+ * A Head Full of Wishes database
+ *
+ * @package	AHFoW
+ * @author	Andy Aldridge <andy@grange85.co.uk>
+ * @link	http://www.fullofwishes.co.uk
  */
-
-class Galaxiedb extends MY_Model {
+class Ahfow_database extends MY_Model {
 
     function __construct() {
         // Call the Model constructor
@@ -45,32 +50,24 @@ class Galaxiedb extends MY_Model {
         
     }
 
-    function artist_lookup($artist) {
+    function get_artist_details($artist) {
 
-        $artist = str_replace(' ', '', strtolower(urldecode($artist)));
+
         $this->firephp->log($artist);
 
-
-        switch ($artist) {
-            case 'galaxie500':
-                return array('artist_id' => 1, 'display' => 'Galaxie 500', 'slug' => $artist);
-                break;
-            case 'luna':
-                return array('artist_id' => 2, 'display' => 'Luna', 'slug' => $artist);
-                break;
-            case 'damonandnaomi':
-            case 'damon&naomi':
-                return array('artist_id' => 3, 'display' => 'Damon & Naomi', 'slug' => $artist);
-                break;
-            case 'deanwareham':
-                return array('artist_id' => 5, 'display' => 'Dean Wareham', 'slug' => $artist);
-                break;
-            case 'deanandbritta':
-            case 'dean&britta':
-                return array('artist_id' => 7, 'display' => 'Dean & Britta', 'slug' => $artist);
-                break;
-            default:
-                return false;
+        if (is_numeric($artist)) {
+            $sql = 'select * from artists where artist_id = ' . $artist;
+        } else {
+            $artist = str_replace(' ', '_', str_replace('&', 'and', trim(strtolower(urldecode($artist)))));
+            $sql = 'select * from artists where slug like "' . $artist . '"';
+        }
+        $query = $this->db->query($sql);
+        $this->firephp->log($query->result());
+        if ($query->num_rows !== 1) {
+            return FALSE;
+        } else {
+            $output = $query->result();
+            return $output[0];
         }
     }
 

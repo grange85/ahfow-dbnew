@@ -40,13 +40,15 @@ define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
 
-if (ENVIRONMENT == 'production') {
+if (ENVIRONMENT === 'production') {
     define('STATIC_HOST', 'http://static.fullofwishes.co.uk/ahfow');
 } else {
     define('STATIC_HOST', 'http://fullofwishes-static.dev');
 }
 
 define('JQUERY_LIBRARY', 'jquery-1.7.2.min.js');
+
+define('SITE_NAME', 'A Head Full of Wishes');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
