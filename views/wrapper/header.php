@@ -18,5 +18,4 @@
                     <h1><?php echo SITE_NAME; ?></h1>
                     <h2><?php echo $props['shorttitle']; ?></h2>
                 </div>
-                <div id="content_wrap" class="clearfix">
 

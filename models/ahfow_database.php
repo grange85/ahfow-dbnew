@@ -17,11 +17,17 @@ class Ahfow_database extends MY_Model {
         parent::__construct();
     }
 
-    function get_artists() {
+    function get_artists($artist_id = NULL) {
 
-        $query = $this->db->get('artists');
-        $this->firephp->log($query->result());
-        return $query->result();
+        if (is_numeric($artist_id)) {
+            $query = $this->db->query('select * from artists where artist_id = ' . $artist_id);
+        } else {
+            $query = $this->db->get('artists');
+        }
+
+        $output = $query->result();
+        $this->firephp->log($output[0]);
+        return $output[0];
     }
 
     function get_discography($artist_id) {
@@ -37,13 +43,23 @@ class Ahfow_database extends MY_Model {
         return $output;
     }
 
-    function get_disc($disc_id) {
-        $sql = 'select display as artist, album_id, album, albums.artist_id, albums.notes, sleeve, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, release_date as full_release_date, version, type, volume_id, ASIN, albumsort, label, format, albums.mbid, albums.wikipedia, include from albums inner join artists on artists.artist_id = albums.artist_id where album_id = ' . $disc_id;
+    function get_disc($disc_id, $full = TRUE) {
+        $sql = 'select display as artist, album_id, album, albums.artist_id, slug, albums.notes, sleeve, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, release_date as full_release_date, version, type, volume_id, ASIN, albumsort, label, format, albums.mbid, albums.wikipedia, include from albums inner join artists on artists.artist_id = albums.artist_id where album_id = ' . $disc_id;
         $query = $this->db->query($sql);
-        $this->firephp->log($query->result());
-        $output = $query->result();
-        $this->firephp->log($output[0]);
-        return $output[0];
+        $disc = $query->result();
+        $output['details'] = $disc[0];
+
+        $sql = 'select tracks.track_id, track, author, lyrics, notes, version, tab, tracksort, original, position, releasenotes from tracks inner join album_track on album_track.track_id = tracks.track_id where album_id = ' . $disc_id . ' order by position';
+        $query = $this->db->query($sql);
+        $output['tracks'] = $query->result();
+
+	$sql = 'select album_id, album, label, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, type, artist_id from albums where (volume_id = '. $output['details']->volume_id . ') and (album_id <> '. $disc_id .')';
+        $query = $this->db->query($sql);
+        $output['others'] = $query->result();
+
+
+
+        return $output;
     }
 
     function get_volumes($artist_id, $category) {
