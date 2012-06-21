@@ -47,8 +47,8 @@ if (ENVIRONMENT === 'production') {
 }
 
 define('JQUERY_LIBRARY', 'jquery-1.7.2.min.js');
-
 define('SITE_NAME', 'A Head Full of Wishes');
+define('MEDIA_HOST', 'http://media.fullofwishes.co.uk');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
