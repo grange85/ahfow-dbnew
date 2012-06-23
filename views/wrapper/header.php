@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title><?php echo $props['title']; ?></title>
+        <title>A Head Full of Wishes: <?php echo $section; ?> - <?php echo $artist_details->display;?></title>
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
 
@@ -16,6 +16,5 @@
             <div id="inner_container">
                 <div id="header" class="clearfix">
                     <h1><?php echo SITE_NAME; ?></h1>
-                    <h2><?php echo $props['shorttitle']; ?></h2>
                 </div>
 
