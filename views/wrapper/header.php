@@ -1,6 +1,10 @@
 <html>
     <head>
-        <title>A Head Full of Wishes: <?php echo $section; ?> - <?php echo $artist_details->display;?></title>
+        <title>A Head Full of Wishes: <?php echo $section; ?>
+
+        
+        
+        </title>
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
 

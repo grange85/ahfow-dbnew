@@ -20,8 +20,14 @@
         <ul>
             <?php foreach ($show['setlist'] as $track): ?>
 
-                <li><p><a href=""><?php echo $track->track; ?></a></p></li>
+                <li><p><a href="<?php echo site_url('database/track/' . $track->track_id); ?>"><?php echo $track->track; ?></a>
+                        <?php if ($track->author): ?>
 
+                            <?php if ($track->notes != '') echo '<em>(' . $track->notes . ')</em>'; ?>
+                            <?php if ($track->author !== 'Krukowski/Wareham/Yang') echo '<em>(' . $track->author . ')</em>'; ?>
+                        <?php endif; ?>
+                    </p>
+                </li>
             <?php endforeach; ?>
         </ul>
 

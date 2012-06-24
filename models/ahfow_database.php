@@ -31,8 +31,23 @@ class Ahfow_database extends MY_Model {
     }
 
     function get_discography($artist_id) {
-        $sql = 'select album_id, album, artist_id, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, version, label, album_types.type from albums inner join album_types on album_types.type_id = albums.type where artist_id = ' . $artist_id . ' order by albums.type ASC, release_date ASC';
-//        $query = $this->db->query('select album_id, album, artist_id, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, version, label, album_types.type from albums inner join album_types on album_types.type_id = albums.type where artist_id = ' . $artist_id . ' and (include=1 or albums.type > 2) group by albums.type ASC, release_date ASC');
+        $sql = 'select 
+                    album_id, 
+                    album, 
+                    artist_id, 
+                    UNIX_TIMESTAMP(release_date) as timestamp, 
+                    DATE_FORMAT(release_date, \'%Y\') as release_date, 
+                    version, 
+                    label, 
+                    album_types.type 
+                from 
+                    albums inner join album_types on album_types.type_id = albums.type 
+                where 
+                    artist_id = ' . $artist_id . ' 
+                order by 
+                    albums.type ASC, 
+                    release_date ASC';
+
         $query = $this->db->query($sql);
         $this->firephp->log($sql);
 
@@ -44,7 +59,31 @@ class Ahfow_database extends MY_Model {
     }
 
     function get_disc($disc_id, $full = TRUE) {
-        $sql = 'select display as artist, album_id, album, albums.artist_id, slug, albums.notes, sleeve, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, release_date as full_release_date, version, type, volume_id, ASIN, albumsort, label, format, albums.mbid, albums.wikipedia, include from albums inner join artists on artists.artist_id = albums.artist_id where album_id = ' . $disc_id;
+        $sql = 'select 
+                    display as artist, 
+                    album_id, 
+                    album, 
+                    albums.artist_id, 
+                    slug, 
+                    albums.notes, 
+                    sleeve, 
+                    UNIX_TIMESTAMP(release_date) as timestamp,
+                    DATE_FORMAT(release_date, \'%Y\') as release_date, 
+                    release_date as full_release_date, 
+                    version, 
+                    type, 
+                    volume_id, 
+                    ASIN, 
+                    albumsort, 
+                    label, 
+                    format, 
+                    albums.mbid, 
+                    albums.wikipedia, 
+                    include 
+                from 
+                    albums inner join artists on artists.artist_id = albums.artist_id 
+                where 
+                    album_id = ' . $disc_id;
         $query = $this->db->query($sql);
         $disc = $query->result();
         if (count($disc) === 0)
@@ -52,15 +91,43 @@ class Ahfow_database extends MY_Model {
 
         $output['details'] = $disc[0];
 
-        $sql = 'select tracks.track_id, track, author, lyrics, notes, version, tab, tracksort, original, position, releasenotes from tracks inner join album_track on album_track.track_id = tracks.track_id where album_id = ' . $disc_id . ' order by position';
+        $sql = 'select 
+                    tracks.track_id, 
+                    track, 
+                    author, 
+                    lyrics, 
+                    notes, 
+                    version, 
+                    tab, 
+                    tracksort, 
+                    original, 
+                    position, 
+                    releasenotes 
+                from 
+                    tracks 
+                        inner join album_track on album_track.track_id = tracks.track_id 
+                where 
+                    album_id = ' . $disc_id . ' 
+                order by 
+                    position';
         $query = $this->db->query($sql);
         $output['tracks'] = $query->result();
 
-        $sql = 'select album_id, album, label, UNIX_TIMESTAMP(release_date) as timestamp, DATE_FORMAT(release_date, \'%Y\') as release_date, type, artist_id from albums where (volume_id = ' . $output['details']->volume_id . ') and (album_id <> ' . $disc_id . ')';
+        $sql = 'select 
+                    album_id, 
+                    album, 
+                    label, 
+                    UNIX_TIMESTAMP(release_date) as timestamp, 
+                    DATE_FORMAT(release_date, \'%Y\') as release_date, 
+                    type, 
+                    artist_id 
+                from 
+                    albums 
+                where 
+                    (volume_id = ' . $output['details']->volume_id . ') 
+                    and (album_id <> ' . $disc_id . ')';
         $query = $this->db->query($sql);
         $output['others'] = $query->result();
-
-
 
         return $output;
     }
@@ -91,7 +158,14 @@ class Ahfow_database extends MY_Model {
     }
 
     function get_shows_list($artist_id = null, $year = null, $track_id = null) {
-        $sql = 'select artists.artist_id, display as artist, UNIX_TIMESTAMP(date) as timestamp, date, shows.show_id, venue, shows.notes, radio';
+        $sql = 'select 
+                    artists.artist_id, 
+                    display as artist, 
+                    UNIX_TIMESTAMP(date) as timestamp, 
+                    date, shows.show_id, 
+                    venue, 
+                    shows.notes, 
+                    radio';
         if ($track_id)
             $sql .= ', track_id';
         $sql .= ' from shows ';
@@ -122,15 +196,154 @@ class Ahfow_database extends MY_Model {
     }
 
     function get_show_details($show_id) {
-        $sql = "select show_id, UNIX_TIMESTAMP(date) as timestamp, date, shows.artist_id, display as artist, shows.notes, radio, cancelled, lastfm, confirmed, venue, YEAR(date) as year from shows inner join artists on artists.artist_id = shows.artist_id where show_id = $show_id";
+        $sql = "select 
+                    show_id, 
+                    UNIX_TIMESTAMP(date) as timestamp, 
+                    date, 
+                    shows.artist_id, 
+                    display as artist, 
+                    shows.notes, 
+                    radio, 
+                    cancelled, 
+                    lastfm, 
+                    confirmed, 
+                    venue, 
+                    YEAR(date) as year 
+                from 
+                    shows 
+                        inner join artists on artists.artist_id = shows.artist_id 
+                where 
+                    show_id = $show_id";
         $query = $this->db->query($sql);
         $rows = $query->result();
         $return['show_details'] = $rows[0];
 
-        $sql = "select setlists.track_id, track, setlists.notes, position from tracks inner join setlists on setlists.track_id = tracks.track_id where show_id = $show_id order by position";
+        $sql = "select setlists.track_id, track, setlists.notes, tracks.author, position from tracks inner join setlists on setlists.track_id = tracks.track_id where show_id = $show_id order by position";
         $query = $this->db->query($sql);
         $return['setlist'] = $query->result();
         $this->firephp->log($return);
+        return $return;
+    }
+
+    function get_track_details($track_id) {
+        $sql = "select 
+                    track_id, 
+                    track, 
+                    author, 
+                    lyrics, 
+                    notes, 
+                    version, 
+                    tab, 
+                    tracksort, 
+                    original, 
+                    (select count(*) from setlists where track_id = $track_id) as plays 
+                from 
+                    tracks 
+                where 
+                    track_id = $track_id";
+        $query = $this->db->query($sql);
+        $rows = $query->result();
+        $return['track_details'] = $rows[0];
+
+        $sql = "select 
+                    albums.album_id, 
+                    albums.album,
+                    albums.release_date,
+                    albums.label,
+                    artists.display,
+                    artists.slug
+                from 
+                    albums 
+                        inner join album_track on album_track.album_id = albums.album_id 
+                        inner join artists on artists.artist_id = albums.artist_id 
+                where 
+                    album_track.track_id = $track_id";
+
+        $query = $this->db->query($sql);
+
+//        $rows = $query->result();
+        $return['available'] = $query->result();
+        $return['az'] = $this->get_az();
+
+        $this->firephp->log($return);
+        return $return;
+    }
+
+    function get_az() {
+        $azsql = 'select DISTINCT UPPER(LEFT(tracksort,1)) as sort from tracks';
+        $az = $this->db->query($azsql);
+        return $az->result();
+    }
+
+    function get_track_list($type, $keyword = NULL) {
+        switch ($type) {
+            case 'guitar':
+                $sql = 'select 
+                            track_id, 
+                            track, 
+                            lyrics, 
+                            tab, 
+                            UPPER(LEFT(tracksort, 1)) as sort 
+                        from 
+                            tracks 
+                        where 
+                            tab <> \'\' order by tracksort';
+                break;
+            case 'az':
+                $sql = 'select 
+                            track_id, 
+                            track, 
+                            author, 
+                            LOWER(LEFT(tracksort, 1)) as sort 
+                        from 
+                            tracks 
+                        where 
+                            LOWER(LEFT(tracksort, 1)) like \'' . $keyword . '\' 
+                        order by 
+                            tracksort';
+                break;
+            case 'albums':
+                $sql = 'select 
+                            a.album_id, 
+                            a.album, 
+                            b.display as artist, 
+                            a.label, 
+                            a.release, 
+                            b.artist_id 
+                        from 
+                            albums a, 
+                            artists b 
+                        where 
+                            (a.albumsort like \'' . $keyword . '%\') 
+                            and (a.artist_id = b.artist_id) 
+                        order by 
+                            albumsort';
+                break;
+            case "covers":
+                $sql = 'select 
+                            track_id, 
+                            track, 
+                            lyrics, 
+                            tab, 
+                            concat(\'written by \', author,\' // originally by \', ifnull(original,\'unknow\')) as author,
+                            UPPER(LEFT(tracksort, 1)) as sort 
+                        from 
+                            tracks 
+                        where 
+                            author <> \'\' and author not like \'%yang%\' and author not like \'%wareham%\' 
+                            and (tracksort like \'' . $keyword . '%\') 
+                        order by 
+                            tracksort';
+                break;
+            default:
+                return false;
+        }
+        $this->firephp->log($sql);
+        $return['az'] = $this->get_az();
+
+        $query = $this->db->query($sql);
+        $this->firephp->log($query->result());
+        $return['list'] = $query->result();
         return $return;
     }
 

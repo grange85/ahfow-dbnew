@@ -32,7 +32,7 @@
         <ul>
             <?php foreach ($disc['tracks'] as $tracks): ?>
 
-                <li><p><a href="<?php echo site_url('database/tracks/' . $tracks->track_id); ?>"><?php echo $tracks->track; ?></a>
+                <li><p><a href="<?php echo site_url('database/track/' . $tracks->track_id); ?>"><?php echo $tracks->track; ?></a>
                         <?php if ($tracks->author): ?>
 
                             <?php if ($tracks->notes != '') echo '<em>(' . $tracks->notes . ')</em>'; ?>
