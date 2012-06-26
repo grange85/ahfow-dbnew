@@ -21,13 +21,19 @@ class Ahfow_database extends MY_Model {
 
         if (is_numeric($artist_id)) {
             $query = $this->db->query('select * from artists where artist_id = ' . $artist_id);
+            $bln_artist = TRUE;
         } else {
-            $query = $this->db->get('artists');
+            $query = $this->db->query('select * from artists where artist_id between 1 and 7');
+            $bln_artist = FALSE;
         }
 
         $output = $query->result();
-        $this->firephp->log($output[0]);
-        return $output[0];
+        $this->firephp->log($output);
+        if ($bln_artist) {
+            return $output[0];
+        } else {
+            return $output;
+        }
     }
 
     function get_discography($artist_id) {
@@ -269,8 +275,13 @@ class Ahfow_database extends MY_Model {
         return $return;
     }
 
-    function get_az() {
+    function get_az($type = NULL) {
         $azsql = 'select DISTINCT UPPER(LEFT(tracksort,1)) as sort from tracks';
+        if ($type) {
+            if ($type === 'covers') $azsql .=  ' where author <> \'\' and author not like \'%yang%\' and author not like \'%wareham%\'' ;
+            if ($type === 'guitar') $azsql .=  ' where tab <> \'\' ';
+        }
+        $azsql .=  ' order by sort';
         $az = $this->db->query($azsql);
         return $az->result();
     }
@@ -283,6 +294,7 @@ class Ahfow_database extends MY_Model {
                             track, 
                             lyrics, 
                             tab, 
+                            author, 
                             UPPER(LEFT(tracksort, 1)) as sort 
                         from 
                             tracks 
@@ -339,7 +351,7 @@ class Ahfow_database extends MY_Model {
                 return false;
         }
         $this->firephp->log($sql);
-        $return['az'] = $this->get_az();
+        $return['az'] = $this->get_az($type);
 
         $query = $this->db->query($sql);
         $this->firephp->log($query->result());

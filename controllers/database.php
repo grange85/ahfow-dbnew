@@ -14,7 +14,8 @@ class Database extends MY_Controller {
         $args = func_get_args();
         $data = array();
         if (count($args) === 0) {
-            show_404();
+            $data['section'] = 'Home';
+            $data['artist_list'] = $this->ahfow_database->get_artists();
         } else {
 //            $data['section'] = 'Discography';
 //            $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
@@ -22,7 +23,7 @@ class Database extends MY_Controller {
         }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
-        $this->load->view('artists', $data);
+        $this->load->view('home', $data);
         $this->load->view('wrapper/sidebar', $data);
         $this->load->view('wrapper/footer');
     }
@@ -156,23 +157,21 @@ class Database extends MY_Controller {
                 $data['key'] = $args[1];
                 $data['track_list'] = $this->ahfow_database->get_track_list($args[0], $args[1]);
                 $selected_view = 'list';
+                $data['section'] = 'Tracks';
                 break;
             case 'covers':
-                //az list of cover versions
-                $data['track_list'] = $this->ahfow_database->get_track_list($args[0]);
-                $selected_view = 'list';
-                break;
             case 'guitar':
-                //az list of tracks with guitar tab/chords
                 $data['track_list'] = $this->ahfow_database->get_track_list($args[0]);
                 $selected_view = 'list';
+                $data['section'] = $args[0];
                 break;
             case is_numeric($args[0]):
                 // track details
                 $data['track_list'] = $this->ahfow_database->get_track_details($args[0]);
-                $data['key'] = substr($data['track_list']['track_details']->tracksort,0,1);
+                $data['key'] = substr($data['track_list']['track_details']->tracksort, 0, 1);
 
                 $selected_view = 'track';
+                $data['section'] = 'Track';
                 if (!$data['track_list']) {
                     show_404();
                 }
@@ -181,7 +180,6 @@ class Database extends MY_Controller {
                 show_404();
         }
 
-        $data['section'] = 'Tracks';
         $this->firephp->log($data);
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);

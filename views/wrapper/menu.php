@@ -14,10 +14,11 @@ if (isset($track_details)) {
 ?>
 
 <ul class="menu level0 clearfix">
-    <li><p><a href="<?php echo site_url('database/'); ?>" title="Database home">Home</a></p></li>
+    <li class="<?php echo is_active('Home', $section); ?>"><p><a href="<?php echo site_url('database/'); ?>" title="Database home">Home</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('galaxie_500', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/galaxie_500'); ?>">Galaxie 500</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('luna', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/luna'); ?>">Luna</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('damon_and_naomi', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/damon_and_naomi'); ?>">Damon &amp; Naomi</a></p></li>
+    <li class="<?php if ($bln_artist) echo is_active('dean_wareham', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_wareham'); ?>">Dean Wareham</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
     <li class="<?php if ($bln_track) echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
 </ul>
@@ -34,7 +35,7 @@ if (isset($track_details)) {
     <ul class="menu level1 clearfix">
         <li class="<?php echo is_active('track', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
         <li class="<?php echo is_active('covers', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/covers'); ?>" title="A-Z of cover versions">Covers</a></p></li>
-        <li class="<?php echo is_active('guitar', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/tracks/guitar'); ?>" title="A-Z of guitar">Guitar</a></p></li>
+        <li class="<?php echo is_active('guitar', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/guitar'); ?>" title="A-Z of guitar">Guitar</a></p></li>
     </ul>         
     <?php
     $current = '';
@@ -45,8 +46,15 @@ if (isset($track_details)) {
             if ($az->sort !== $current):
                 $current = $az->sort;
                 ?>
-                <li class="<?php echo is_active(strtoupper($key), $az->sort); ?>"><p><a href="<?php echo site_url('database/track/az/' . strtolower($current)); ?>"><?php echo strtoupper($current); ?></a></p></li>
+                <?php if ($this->uri->segment(3)==='covers' || $this->uri->segment(3)==='guitar' ):?>
+                    <li><p><a href="<?php echo '#' . strtolower($current); ?>"><?php echo strtoupper($current); ?></a></p></li>
+        
+                <?php elseif ($this->uri->segment(3)==='guitar'):?>
+        
+                <?php else:?>
+                    <li class="<?php echo is_active(strtoupper($key), $az->sort); ?>"><p><a href="<?php echo site_url('database/track/az/' . strtolower($current)); ?>"><?php echo strtoupper($current); ?></a></p></li>
             <?php
+            endif;
             endif;
 
         endforeach;

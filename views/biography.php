@@ -27,7 +27,7 @@
         );
         ?>
 
-        <div class="imagebox-right">
+        <div class="imagebox_right">
             <?php echo img($image_props); ?>
             <p><?php echo $artist_details->display; ?></p>
         </div>
