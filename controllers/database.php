@@ -8,6 +8,9 @@ class Database extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ahfow_database');
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(10);
+        }
     }
 
     public function index() {
