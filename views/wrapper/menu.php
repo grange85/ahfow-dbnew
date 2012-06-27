@@ -10,13 +10,13 @@ if (isset($artist_details)) {
 ?>
 
 <ul class="menu level0 clearfix">
-    <li class="<?php echo is_active('Home', $section); ?>"><p><a href="<?php echo site_url('database/'); ?>" title="Database home">Home</a></p></li>
+    <li class="<?php echo is_active('home', $section); ?>"><p><a href="<?php echo site_url('database/'); ?>" title="Database home">Home</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('galaxie_500', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/galaxie_500'); ?>">Galaxie 500</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('luna', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/luna'); ?>">Luna</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('damon_and_naomi', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/damon_and_naomi'); ?>">Damon &amp; Naomi</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_wareham', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_wareham'); ?>">Dean Wareham</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
-    <li class="<?php if (!$bln_artist && $section !== 'Home') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <li class="<?php if (!$bln_artist && $section !== 'home') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
 </ul>
 
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
