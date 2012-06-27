@@ -14,10 +14,10 @@ class Database extends MY_Controller {
         $args = func_get_args();
         $data = array();
         if (count($args) === 0) {
-            $data['section'] = 'Home';
+            $data['section'] = 'home';
             $data['artist_list'] = $this->ahfow_database->get_artists();
         } else {
-//            $data['section'] = 'Discography';
+//            $data['section'] = 'discography';
 //            $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
             redirect('database/biography/' . $args[0], 'location');
         }
@@ -34,7 +34,7 @@ class Database extends MY_Controller {
         if (count($args) < 1) {
             show_404();
         } else {
-            $data['section'] = 'Discography';
+            $data['section'] = 'discography';
             $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
             if (!$data['artist_details']) {
                 show_404();
@@ -65,7 +65,7 @@ class Database extends MY_Controller {
         if (count($args) === 0) {
             show_404();
         } else {
-            $data['section'] = 'Biography';
+            $data['section'] = 'biography';
             $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
 
             if (!$data['artist_details']) {
@@ -82,7 +82,7 @@ class Database extends MY_Controller {
     public function gigography() {
         $args = func_get_args();
         $data = array();
-        $data['section'] = 'Gigography';
+        $data['section'] = 'gigography';
         $this->firephp->log($args);
 
         if (count($args) === 0) {
@@ -157,7 +157,7 @@ class Database extends MY_Controller {
                 $data['key'] = $args[1];
                 $data['track_list'] = $this->ahfow_database->get_track_list($args[0], $args[1]);
                 $selected_view = 'list';
-                $data['section'] = 'Tracks';
+                $data['section'] = 'tracks';
                 break;
             case 'covers':
             case 'guitar':
@@ -171,7 +171,7 @@ class Database extends MY_Controller {
                 $data['key'] = substr($data['track_list']['track_details']->tracksort, 0, 1);
 
                 $selected_view = 'track';
-                $data['section'] = 'Track';
+                $data['section'] = 'track';
                 if (!$data['track_list']) {
                     show_404();
                 }
@@ -188,4 +188,32 @@ class Database extends MY_Controller {
         $this->load->view('wrapper/footer');
     }
 
+    public function lists() {
+        $args = func_get_args();
+        $data = array();
+        $data['section'] = 'lists';
+
+        if (count($args) > 0) {
+            if ($args[0] !== 'albums') {
+                show_404();
+            } else {
+                $data['track_list'] = $this->ahfow_database->get_track_list($args[0]);
+                $selected_view = 'list';
+                $data['section'] = $args[0];
+            }
+            
+            
+        } else {
+            
+            $selected_view = 'list';
+        }
+        $this->firephp->log($data);
+        $this->load->view('wrapper/header', $data);
+        $this->load->view('wrapper/menu', $data);
+        $this->load->view($selected_view, $data);
+        $this->load->view('wrapper/sidebar', $data);
+        $this->load->view('wrapper/footer');
+    }
+
 }
+

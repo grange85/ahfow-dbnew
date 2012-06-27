@@ -1,15 +1,11 @@
 <?php
 $this->load->helper('artist_helper');
+$this->firephp->log($section);
 
 if (isset($artist_details)) {
     $bln_artist = TRUE;
 } else {
     $bln_artist = FALSE;
-}
-if (isset($track_details)) {
-    $bln_track = TRUE;
-} else {
-    $bln_track = FALSE;
 }
 ?>
 
@@ -20,7 +16,7 @@ if (isset($track_details)) {
     <li class="<?php if ($bln_artist) echo is_active('damon_and_naomi', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/damon_and_naomi'); ?>">Damon &amp; Naomi</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_wareham', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_wareham'); ?>">Dean Wareham</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
-    <li class="<?php if ($bln_track) echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <li class="<?php if (!$bln_artist && $section !== 'Home') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
 </ul>
 
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
@@ -31,46 +27,51 @@ if (isset($track_details)) {
     </ul>         
 <?php endif; ?>
 
-<?php if ($this->uri->segment(2) === 'track') : ?>
+<?php if ($this->uri->segment(2) === 'track' || $section === 'lists' || $section ==='albums') : ?>
     <ul class="menu level1 clearfix">
-        <li class="<?php echo is_active('track', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
+        <li class="<?php echo is_active('track', substr(strtolower($section), 0, 5)); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
         <li class="<?php echo is_active('covers', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/covers'); ?>" title="A-Z of cover versions">Covers</a></p></li>
         <li class="<?php echo is_active('guitar', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/guitar'); ?>" title="A-Z of guitar">Guitar</a></p></li>
+        <li class="<?php echo is_active('albums', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/lists/albums'); ?>" title="A-Z of guitar">Albums</a></p></li>
     </ul>         
     <?php
-    $current = '';
-    ?>
-    <ul class="menu level2 clearfix">
-        <?php
-        foreach ($track_list['az'] as $az):
-            if ($az->sort !== $current):
-                $current = $az->sort;
-                ?>
-                <?php if ($this->uri->segment(3)==='covers' || $this->uri->segment(3)==='guitar' ):?>
-                    <li><p><a href="<?php echo '#' . strtolower($current); ?>"><?php echo strtoupper($current); ?></a></p></li>
-        
-                <?php elseif ($this->uri->segment(3)==='guitar'):?>
-        
-                <?php else:?>
-                    <li class="<?php echo is_active(strtoupper($key), $az->sort); ?>"><p><a href="<?php echo site_url('database/track/az/' . strtolower($current)); ?>"><?php echo strtoupper($current); ?></a></p></li>
-            <?php
-            endif;
-            endif;
+    if ($section !== 'lists'):
 
-        endforeach;
+        $current = '';
         ?>
-    </ul>         
-<?php endif; ?>
+        <ul class="menu level2 clearfix">
+            <?php
+            foreach ($track_list['az'] as $az):
+                if ($az->sort !== $current):
+                    $current = $az->sort;
+                    ?>
+                    <?php if ($this->uri->segment(3) === 'covers' || $this->uri->segment(3) === 'guitar' || $this->uri->segment(3) === 'albums'): ?>
+                        <li><p><a href="<?php echo '#' . strtolower($current); ?>"><?php echo strtoupper($current); ?></a></p></li>
+
+                    <?php else: ?>
+                        <li class="<?php echo is_active(strtoupper($key), $az->sort); ?>"><p><a href="<?php echo site_url('database/track/az/' . strtolower($current)); ?>"><?php echo strtoupper($current); ?></a></p></li>
+                    <?php
+                    endif;
+                endif;
+
+            endforeach;
+            ?>
+        </ul>         
+        <?php
+    endif;
+
+endif;
+?>
 
 
-    <?php if ($this->uri->segment(2) === 'gigography' && $this->uri->segment(4) !== 'show') : ?>
+<?php if ($this->uri->segment(2) === 'gigography' && $this->uri->segment(4) !== 'show') : ?>
     <ul class="menu level2 clearfix">
-    <?php foreach ($show_list['years'] as $active_year): ?>
+        <?php foreach ($show_list['years'] as $active_year): ?>
 
             <li class="<?php echo is_active($year, $active_year->year); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug . '/' . $active_year->year); ?>"><?php echo $active_year->year; ?></a></p></li>
 
 
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </ul>         
 <?php endif; ?>
 

@@ -14,7 +14,7 @@
         );
         ?>
 
-        <div class="imagebox-right">
+        <div class="imagebox_right">
             <?php echo img($image_props); ?>
             <p><?php echo $disc['details']->album . ' - ' . $disc['details']->artist; ?></p>
         </div>

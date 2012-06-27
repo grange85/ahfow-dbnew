@@ -280,6 +280,7 @@ class Ahfow_database extends MY_Model {
         if ($type) {
             if ($type === 'covers') $azsql .=  ' where author <> \'\' and author not like \'%yang%\' and author not like \'%wareham%\'' ;
             if ($type === 'guitar') $azsql .=  ' where tab <> \'\' ';
+            if ($type === 'albums') $azsql =  'select DISTINCT UPPER(LEFT(albumsort,1)) as sort from albums';
         }
         $azsql .=  ' order by sort';
         $az = $this->db->query($azsql);
@@ -318,9 +319,12 @@ class Ahfow_database extends MY_Model {
                 $sql = 'select 
                             a.album_id, 
                             a.album, 
-                            b.display as artist, 
+                            b.display,
+                            b.slug,
                             a.label, 
-                            a.release, 
+                            a.release_date, 
+                            LOWER(LEFT(albumsort,1)) as sort,
+                            YEAR(release_date) as year,
                             b.artist_id 
                         from 
                             albums a, 
