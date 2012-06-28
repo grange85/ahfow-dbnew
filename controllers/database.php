@@ -136,7 +136,7 @@ class Database extends MY_Controller {
 
         $this->firephp->log($data);
         if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
-            $this->output->cache(10);
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
@@ -184,6 +184,9 @@ class Database extends MY_Controller {
         }
 
         $this->firephp->log($data);
+        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);
