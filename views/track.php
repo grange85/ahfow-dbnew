@@ -1,11 +1,11 @@
 
 <div id="content_left">
-    <h2><?php echo $track_list['track_details']->track; ?></h2>
+    <h2><?php echo htmlentities($track_list['track_details']->track); ?></h2>
 
     <div>
         <ul>
-            <?php if ($track_list['track_details']->author) echo '<li><p>Written by ' . $track_list['track_details']->author . '</p></li>'; ?>
-            <?php if ($track_list['track_details']->original) echo '<li><p>Originally by ' . $track_list['track_details']->original . '</p></li>'; ?>
+            <?php if ($track_list['track_details']->author) echo '<li><p>Written by ' . htmlentities($track_list['track_details']->author) . '</p></li>'; ?>
+            <?php if ($track_list['track_details']->original) echo '<li><p>Originally by ' . htmlentities($track_list['track_details']->original) . '</p></li>'; ?>
 
         </ul>
         <?php echo $this->typography->auto_typography($track_list['track_details']->notes); ?>
@@ -34,8 +34,8 @@
         <ul>
             <?php foreach ($track_list['available'] as $available): ?>
 
-                <li><p><a href="<?php echo site_url('database/discography/' . $available->slug . '/' . $available->album_id); ?>"><?php echo $available->album; ?> by <?php echo $available->display; ?></a>
-                        <em>(<?php echo $available->label; ?> - <?php echo $available->release_date; ?>)</em>
+                <li><p><a href="<?php echo site_url('database/discography/' . $available->slug . '/' . $available->album_id); ?>"><?php echo htmlentities($available->album); ?> by <?php echo htmlentities($available->display); ?></a>
+                        <em>(<?php echo htmlentities($available->label); ?> - <?php echo $available->release_date; ?>)</em>
                     </p>
                 </li>
             <?php endforeach; ?>          

@@ -8,10 +8,10 @@
     if ($artist->image) {
         $image_props = array(
             'src' => MEDIA_HOST . '/sleeves/' . $artist->image,
-            'alt' => $artist->display,
+            'alt' => htmlentities($artist->display),
             'width' => '200',
             'height' => '200',
-            'title' => $artist->display
+            'title' => htmlentities($artist->display)
         );
         ?>
 
@@ -20,9 +20,9 @@
         </div>
     <?php }?>
         <ul>
-            <li><p><a href="<?php echo site_url('database/biography/' . $artist->slug);?>"><?php echo $artist->display;?> biography</a></p></li>
-            <li><p><a href="<?php echo site_url('database/discography/' . $artist->slug);?>"><?php echo $artist->display;?> discography</a></p></li>
-            <li><p><a href="<?php echo site_url('database/gigography/' . $artist->slug);?>"><?php echo $artist->display;?> gigography</a></p></li>
+            <li><p><a href="<?php echo site_url('database/biography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> biography</a></p></li>
+            <li><p><a href="<?php echo site_url('database/discography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> discography</a></p></li>
+            <li><p><a href="<?php echo site_url('database/gigography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> gigography</a></p></li>
             
         </ul>
         

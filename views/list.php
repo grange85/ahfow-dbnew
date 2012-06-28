@@ -16,7 +16,7 @@
 
                 }?>
             
-                <li><p><a href="<?php echo site_url('database/discography/'. $album->slug . '/' . $album->album_id); ?>"><?php echo $album->album . ' - ' . $album->display ; ?></a>
+                <li><p><a href="<?php echo site_url('database/discography/'. $album->slug . '/' . $album->album_id); ?>"><?php echo htmlentities($album->album) . ' - ' . htmlentities($album->display) ; ?></a>
                         <?php echo '<em>(' . $album->year . ' - ' . $album->label . ')</em>'; ?>
                     </p>
                 </li>
@@ -35,9 +35,9 @@
                     echo '<h4><a name="' . strtolower($current) . '"></a>' . strtoupper($current) . '</h4><ul>';
 
                 }?>
-                <li><p><a href="<?php echo site_url('database/track/' . $track->track_id); ?>"><?php echo $track->track; ?></a>
+                <li><p><a href="<?php echo site_url('database/track/' . $track->track_id); ?>"><?php echo htmlentities($track->track); ?></a>
                         <?php if ($track->author): ?>
-                            <?php if ($track->author !== 'Krukowski/Wareham/Yang') echo '<em>(' . $track->author . ')</em>'; ?>
+                            <?php if ($track->author !== 'Krukowski/Wareham/Yang') echo '<em>(' . htmlentities($track->author) . ')</em>'; ?>
                         <?php endif; ?>
                     </p>
                 </li>
