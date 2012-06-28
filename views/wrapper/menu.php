@@ -18,16 +18,14 @@ if (isset($artist_details)) {
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
     <li class="<?php if (!$bln_artist && $section !== 'home') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
 </ul>
-
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
     <ul class="menu level1 clearfix">
-        <li class="<?php echo is_active('biography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/biography/' . $artist_details->slug); ?>" title="<?php echo $artist_details->display; ?> Biography">Biography</a></p></li>
-        <li class="<?php echo is_active('discography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug); ?>" title="<?php echo $artist_details->display; ?> Biography">Discography</a></p></li>
-        <li class="<?php echo is_active('gigography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug); ?>" title="<?php echo $artist_details->display; ?> Biography">Gigography</a></p></li>
+        <li class="<?php echo is_active('biography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/biography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Biography</a></p></li>
+        <li class="<?php echo is_active('discography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Discography</a></p></li>
+        <li class="<?php echo is_active('gigography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Gigography</a></p></li>
     </ul>         
 <?php endif; ?>
-
-<?php if ($this->uri->segment(2) === 'track' || $section === 'lists' || $section ==='albums') : ?>
+<?php if ($this->uri->segment(2) === 'track' || $section === 'lists' || $section === 'albums') : ?>
     <ul class="menu level1 clearfix">
         <li class="<?php echo is_active('track', substr(strtolower($section), 0, 5)); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
         <li class="<?php echo is_active('covers', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/covers'); ?>" title="A-Z of cover versions">Covers</a></p></li>
@@ -62,8 +60,6 @@ if (isset($artist_details)) {
 
 endif;
 ?>
-
-
 <?php if ($this->uri->segment(2) === 'gigography' && $this->uri->segment(4) !== 'show') : ?>
     <ul class="menu level2 clearfix">
         <?php foreach ($show_list['years'] as $active_year): ?>

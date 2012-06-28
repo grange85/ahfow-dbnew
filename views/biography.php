@@ -36,7 +36,7 @@
     ?>    
 
     <div>
-        <p><?php echo $this->typography->auto_typography($artist_details->notes); ?></p>
+        <?php echo $this->typography->auto_typography($artist_details->notes); ?>
     </div>
 
 
