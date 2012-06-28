@@ -6,6 +6,7 @@
         
         
         </title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
 
