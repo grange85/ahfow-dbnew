@@ -5,16 +5,16 @@
     <?php if (isset($artist_details)): ?>
         <ul>
             <?php if ($artist_details->website): ?>
-                <li><p><a href="<?php echo $artist_details->website; ?>"><?php echo $artist_details->display; ?> official website</a></p></li>
+                <li><p><a href="<?php echo $artist_details->website; ?>"><?php echo htmlentities($artist_details->display); ?> official website</a></p></li>
             <?php endif; ?>
             <?php if ($artist_details->mbid): ?>
-                <li><p><a href="http://musicbrainz.org/artist/<?php echo $artist_details->mbid; ?>"><?php echo $artist_details->display; ?> on MusicBrainz</a></p></li>
+                <li><p><a href="http://musicbrainz.org/artist/<?php echo $artist_details->mbid; ?>"><?php echo htmlentities($artist_details->display); ?> on MusicBrainz</a></p></li>
             <?php endif; ?>
             <?php if ($artist_details->wikipedia): ?>
-                <li><p><a href="<?php echo $artist_details->wikipedia; ?>"><?php echo $artist_details->display; ?> on Wikipedia</a></p></li>
+                <li><p><a href="<?php echo $artist_details->wikipedia; ?>"><?php echo htmlentities($artist_details->display); ?> on Wikipedia</a></p></li>
             <?php endif; ?>
             <?php if ($artist_details->myspace): ?>
-                <li><p><a href="<?php echo $artist_details->myspace; ?>"><?php echo $artist_details->display; ?> MySpace</a></p></li>
+                <li><p><a href="<?php echo $artist_details->myspace; ?>"><?php echo htmlentities($artist_details->display); ?> MySpace</a></p></li>
             <?php endif; ?>
         </ul>
     <?php endif; ?>
