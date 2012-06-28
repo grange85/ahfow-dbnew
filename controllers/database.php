@@ -135,7 +135,7 @@ class Database extends MY_Controller {
         }
 
         $this->firephp->log($data);
-        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
             $this->output->cache(10);
         }
         $this->load->view('wrapper/header', $data);
