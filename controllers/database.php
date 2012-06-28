@@ -21,6 +21,9 @@ class Database extends MY_Controller {
 //            $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
             redirect('database/biography/' . $args[0], 'location');
         }
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view('home', $data);
@@ -51,6 +54,9 @@ class Database extends MY_Controller {
                 }
             }
         }
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
 
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
@@ -72,6 +78,9 @@ class Database extends MY_Controller {
                 show_404();
             }
         }
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view('biography', $data);
@@ -83,7 +92,6 @@ class Database extends MY_Controller {
         $args = func_get_args();
         $data = array();
         $data['section'] = 'gigography';
-        $this->firephp->log($args);
 
         if (count($args) === 0) {
             show_404();
@@ -134,8 +142,7 @@ class Database extends MY_Controller {
             show_404();
         }
 
-        $this->firephp->log($data);
-        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+        if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
         $this->load->view('wrapper/header', $data);
@@ -183,8 +190,7 @@ class Database extends MY_Controller {
                 show_404();
         }
 
-        $this->firephp->log($data);
-        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+        if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
         $this->load->view('wrapper/header', $data);
@@ -213,7 +219,9 @@ class Database extends MY_Controller {
             
             $selected_view = 'list';
         }
-        $this->firephp->log($data);
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);
