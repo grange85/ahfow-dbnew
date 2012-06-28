@@ -11,7 +11,7 @@ class MY_Model extends CI_Model {
         parent::__construct();
 
         if (defined('ENVIRONMENT')) {
-            if (ENVIRONMENT !== 'development') {
+            if (ENVIRONMENT === 'production') {
                 $this->firephp->setEnabled(false);
             }
         }
