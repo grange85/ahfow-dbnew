@@ -8,9 +8,6 @@ class Database extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ahfow_database');
-        if (ENVIRONMENT === 'production') {
-            $this->output->cache(10);
-        }
     }
 
     public function index() {
@@ -138,6 +135,9 @@ class Database extends MY_Controller {
         }
 
         $this->firephp->log($data);
+        if (ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+            $this->output->cache(10);
+        }
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);
