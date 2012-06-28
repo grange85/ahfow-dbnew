@@ -40,10 +40,14 @@ define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
 
-if (ENVIRONMENT === 'production') {
-    define('STATIC_HOST', 'http://static.fullofwishes.co.uk/ahfow');
-} else {
-    define('STATIC_HOST', 'http://fullofwishes-static.dev');
+switch (ENVIRONMENT) {
+    case 'production':
+    case 'testing':
+        define('STATIC_HOST', 'http://static.fullofwishes.co.uk/ahfow');
+        break;
+    case 'development':
+        define('STATIC_HOST', 'http://fullofwishes-static.dev');
+        break;
 }
 
 define('JQUERY_LIBRARY', 'jquery-1.7.2.min.js');
