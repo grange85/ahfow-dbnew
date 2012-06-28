@@ -20,9 +20,9 @@ if (isset($artist_details)) {
 </ul>
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
     <ul class="menu level1 clearfix">
-        <li class="<?php echo is_active('biography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/biography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Biography</a></p></li>
-        <li class="<?php echo is_active('discography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Discography</a></p></li>
-        <li class="<?php echo is_active('gigography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug); ?>" title="<?php echo ascii_to_entities($artist_details->display); ?> Biography">Gigography</a></p></li>
+        <li class="<?php echo is_active('biography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/biography/' . $artist_details->slug); ?>" title="<?php echo htmlentities($artist_details->display); ?> Biography">Biography</a></p></li>
+        <li class="<?php echo is_active('discography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug); ?>" title="<?php echo htmlentities($artist_details->display); ?> Discography">Discography</a></p></li>
+        <li class="<?php echo is_active('gigography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug); ?>" title="<?php echo htmlentities($artist_details->display); ?> Gigography">Gigography</a></p></li>
     </ul>         
 <?php endif; ?>
 <?php if ($this->uri->segment(2) === 'track' || $section === 'lists' || $section === 'albums') : ?>
