@@ -213,7 +213,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = realpath(dirname(__FILE__)) . '/../../protected/codeigniter/ahfow/cache/';
+$config['cache_path'] = '../cache/';
 
 /*
 |--------------------------------------------------------------------------
