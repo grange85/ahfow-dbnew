@@ -12,10 +12,10 @@
 /* End of file gigography.php */
 ?>
 <div id="content_left">
-    <h2><?php echo $artist_details->display; ?> shows from <?php echo $year; ?></h2>
+    <h2><?php echo htmlentities($artist_details->display); ?> shows from <?php echo $year; ?></h2>
     <ul>
         <?php foreach ($show_list['list'] as $show): ?>
-            <li><p><a href="<?php echo site_url('/database/gigography/' . $artist_details->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) . ' @ ' . $show->venue ?></a></p></li>
+        <li><p><a href="<?php echo site_url('/database/gigography/' . $artist_details->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) . ' @ ' . htmlentities($show->venue); ?></a></p></li>
         <?php endforeach; ?>
     </ul>
 </div>
