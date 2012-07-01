@@ -82,6 +82,7 @@ class Database extends MY_Controller {
         if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
+        $this->firephp->log($data);
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view('biography', $data);
@@ -160,14 +161,19 @@ class Database extends MY_Controller {
                     $args[1] = 'a';
                 $args[1] = strtolower($args[1]);
                 $data['key'] = $args[1];
-                $data['track_list'] = $this->ahfow_database->get_track_list($args[0], $args[1]);
+                $details = $this->ahfow_database->get_track_list($args[0], $args[1]);
+                $data['list'] = $details['list'];
+                $data['az'] = $details['az'];
+
                 $selected_view = 'list';
                 $data['section'] = 'tracks';
                 $data['page_title'] = 'A-Z of tracks - ' . ucfirst($data['key']);
                 break;
             case 'covers':
             case 'guitar':
-                $data['track_list'] = $this->ahfow_database->get_track_list($args[0]);
+                $details = $this->ahfow_database->get_track_list($args[0]);
+                $data['list'] = $details['list'];
+                $data['az'] = $details['az'];
                 $selected_view = 'list';
                 $data['section'] = $args[0];
                 $data['page_title'] = 'A-Z of ' . $args[0];
@@ -186,15 +192,17 @@ class Database extends MY_Controller {
                 } else {
 
                     // track details
-                    $data['track_list'] = $this->ahfow_database->get_track_details($args[0]);
-                    $data['key'] = substr($data['track_list']['track_details']->tracksort, 0, 1);
+                    $details = $this->ahfow_database->get_track_details($args[0]);
+                    $data['track_details'] = $details['track_details'];
+                    $data['az'] = $details['az'];
+                    $data['available'] = $details['available'];
+
+
+                    $data['key'] = substr($data['track_details']->tracksort, 0, 1);
 
                     $selected_view = 'track';
                     $data['section'] = 'track';
-                    $data['page_title'] = ucfirst($data['section']) . ': ' .  $data['track_list']['track_details']->track;
-                    if (!$data['track_list']) {
-                        show_404();
-                    }
+                    $data['page_title'] = ucfirst($data['section']) . ': ' . $data['track_details']->track;
                 }
                 break;
             default:
@@ -222,7 +230,9 @@ class Database extends MY_Controller {
             if ($args[0] !== 'albums') {
                 show_404();
             } else {
-                $data['track_list'] = $this->ahfow_database->get_track_list($args[0]);
+                $details = $this->ahfow_database->get_track_list($args[0]);
+                $data['az'] = $details['az'];
+                $data['list'] = $details['list'];
                 $selected_view = 'list';
                 $data['section'] = $args[0];
                 $data['page_title'] = 'List of albums';
@@ -234,6 +244,7 @@ class Database extends MY_Controller {
         if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
+        $this->firephp->log($data);
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);

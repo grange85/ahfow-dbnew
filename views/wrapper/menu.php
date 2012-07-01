@@ -39,7 +39,7 @@ if (isset($artist_details)) {
         ?>
         <ul class="menu level2 clearfix">
             <?php
-            foreach ($track_list['az'] as $az):
+            foreach ($az as $az):
                 if ($az->sort !== $current):
                     $current = $az->sort;
                     ?>
@@ -77,6 +77,16 @@ endif;
     </ul>         
 <?php endif; ?>
 
+
+
+<?php if ($this->uri->segment(2) === 'discography' && !$this->uri->segment(4)): ?>
+    <ul class="menu level2 clearfix">
+        <?php foreach ($discography as $key => $value): ?>
+        <li><p><a href="#<?php echo urlencode($key); ?>"><?php echo $key; ?></a></p></li>
+            <?php endforeach; ?>
+    </ul>
+<?php endif;
+?>
 
 
 <div id="content_wrap" class="clearfix">

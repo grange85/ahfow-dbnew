@@ -8,7 +8,7 @@
     <?php if ($section === 'albums'):?>
         <ul>
             <?php $current = '';
-            foreach ($track_list['list'] as $album): ?>
+            foreach ($list as $album): ?>
                 <?php if ($current !== $album->sort) {
                     if ($current !=='') echo '</ul><p class="backtotop"><a href="#top">Back to the top</a></p>';
                     $current = $album->sort;
@@ -28,7 +28,7 @@
     <?php else:?>
         <ul>
             <?php $current = '';
-            foreach ($track_list['list'] as $track): ?>
+            foreach ($list as $track): ?>
                 <?php if ($current !== $track->sort && $section !== 'tracks' ) {
                     if ($current !=='') echo '</ul><p class="backtotop"><a href="#top">Back to the top</a></p>';
                     $current = $track->sort;
