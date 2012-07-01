@@ -22,8 +22,8 @@
             <?php foreach ($show_list['list'] as $show): ?>
 
                 <tr>
-                    <td><a href="<?php echo site_url('/database/gigography/' . $artist_details->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) ?></a></td>
-                    <td><?php echo $artist_details->display;?></td>
+                    <td><a href="<?php echo site_url('/database/gigography/' . $show->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) ?></a></td>
+                    <td><?php echo $show->artist;?></td>
                     <td><?php echo htmlentities($show->venue);?></td>
                     <td><?php echo ($show->setlists > 0)?'yes': '';?></td>
 
