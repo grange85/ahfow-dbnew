@@ -1,7 +1,5 @@
 <?php
 $this->load->helper('artist_helper');
-$this->firephp->log($section);
-
 if (isset($artist_details)) {
     $bln_artist = TRUE;
 } else {
@@ -25,9 +23,11 @@ if (isset($artist_details)) {
         <li class="<?php echo is_active('gigography', $this->uri->segment(2)); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug); ?>" title="<?php echo htmlentities($artist_details->display); ?> Gigography">Gigography</a></p></li>
     </ul>         
 <?php endif; ?>
+
+
 <?php if ($this->uri->segment(2) === 'track' || $section === 'lists' || $section === 'albums') : ?>
     <ul class="menu level1 clearfix">
-        <li class="<?php echo is_active('track', substr(strtolower($section), 0, 5)); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
+        <li class="<?php echo is_active('track', substr(strtolower($section), 0, 5)) . is_active('lists', $section); ?>"><p><a href="<?php echo site_url('database/track/az'); ?>" title="A-Z of tracks">Tracks</a></p></li>
         <li class="<?php echo is_active('covers', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/covers'); ?>" title="A-Z of cover versions">Covers</a></p></li>
         <li class="<?php echo is_active('guitar', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/track/guitar'); ?>" title="A-Z of guitar">Guitar</a></p></li>
         <li class="<?php echo is_active('albums', $this->uri->segment(3)); ?>"><p><a href="<?php echo site_url('database/lists/albums'); ?>" title="A-Z of guitar">Albums</a></p></li>

@@ -28,7 +28,6 @@ class Ahfow_database extends MY_Model {
         }
 
         $output = $query->result();
-        $this->firephp->log($output);
         if ($bln_artist) {
             return $output[0];
         } else {
@@ -55,12 +54,10 @@ class Ahfow_database extends MY_Model {
                     release_date ASC';
 
         $query = $this->db->query($sql);
-        $this->firephp->log($sql);
 
         foreach ($query->result() as $item) {
             $output[$item->type][] = $item;
         }
-        $this->firephp->log($output);
         return $output;
     }
 
@@ -145,7 +142,6 @@ class Ahfow_database extends MY_Model {
     function get_artist_details($artist) {
 
 
-        $this->firephp->log($artist);
 
         if (is_numeric($artist)) {
             $sql = 'select * from artists where artist_id = ' . $artist;
@@ -154,7 +150,6 @@ class Ahfow_database extends MY_Model {
             $sql = 'select * from artists where slug like "' . $artist . '"';
         }
         $query = $this->db->query($sql);
-        $this->firephp->log($query->result());
         if ($query->num_rows !== 1) {
             return FALSE;
         } else {
@@ -168,9 +163,12 @@ class Ahfow_database extends MY_Model {
                     artists.artist_id, 
                     display as artist, 
                     UNIX_TIMESTAMP(date) as timestamp, 
-                    date, shows.show_id, 
+                    date, 
+                    shows.show_id, 
                     venue, 
                     shows.notes, 
+                    (select count(*) from setlists where shows.show_id = show_id) as setlists, 
+                    slug,
                     radio';
         if ($track_id)
             $sql .= ', track_id';
@@ -187,17 +185,17 @@ class Ahfow_database extends MY_Model {
             $sql .= ' and DATE_FORMAT(date,\'%Y\') = ' . $year;
         }
         $sql .= " order by date ";
-        $this->firephp->log($sql);
         $query = $this->db->query($sql);
 
         $return['list'] = $query->result();
 
-        $sql = "select distinct DATE_FORMAT(date, '%Y') as year from shows where artist_id = $artist_id order by date";
-        $query = $this->db->query($sql);
-        $return['years'] = $query->result();
+        if (!$track_id) {
+            $sql = "select distinct DATE_FORMAT(date, '%Y') as year from shows where artist_id = $artist_id order by date";
+            $query = $this->db->query($sql);
+            $return['years'] = $query->result();
+            $return['debug'] = 'debug: ' . $track_id;
+        }
 
-
-        $this->firephp->log($return);
         return $return;
     }
 
@@ -227,7 +225,6 @@ class Ahfow_database extends MY_Model {
         $sql = "select setlists.track_id, track, setlists.notes, tracks.author, position from tracks inner join setlists on setlists.track_id = tracks.track_id where show_id = $show_id order by position";
         $query = $this->db->query($sql);
         $return['setlist'] = $query->result();
-        $this->firephp->log($return);
         return $return;
     }
 
@@ -270,19 +267,22 @@ class Ahfow_database extends MY_Model {
 //        $rows = $query->result();
         $return['available'] = $query->result();
         $return['az'] = $this->get_az();
+//        $return['played'] = $this->get_shows_list(NULL, NULL, $track_id);
 
-        $this->firephp->log($return);
         return $return;
     }
 
     function get_az($type = NULL) {
         $azsql = 'select DISTINCT UPPER(LEFT(tracksort,1)) as sort from tracks';
         if ($type) {
-            if ($type === 'covers') $azsql .=  ' where author <> \'\' and author not like \'%yang%\' and author not like \'%wareham%\'' ;
-            if ($type === 'guitar') $azsql .=  ' where tab <> \'\' ';
-            if ($type === 'albums') $azsql =  'select DISTINCT UPPER(LEFT(albumsort,1)) as sort from albums';
+            if ($type === 'covers')
+                $azsql .= ' where author <> \'\' and author not like \'%yang%\' and author not like \'%wareham%\'';
+            if ($type === 'guitar')
+                $azsql .= ' where tab <> \'\' ';
+            if ($type === 'albums')
+                $azsql = 'select DISTINCT UPPER(LEFT(albumsort,1)) as sort from albums';
         }
-        $azsql .=  ' order by sort';
+        $azsql .= ' order by sort';
         $az = $this->db->query($azsql);
         return $az->result();
     }
@@ -354,11 +354,9 @@ class Ahfow_database extends MY_Model {
             default:
                 return false;
         }
-        $this->firephp->log($sql);
         $return['az'] = $this->get_az($type);
 
         $query = $this->db->query($sql);
-        $this->firephp->log($query->result());
         $return['list'] = $query->result();
         return $return;
     }

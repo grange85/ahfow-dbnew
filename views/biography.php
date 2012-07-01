@@ -36,7 +36,7 @@
     ?>    
 
     <div>
-        <?php echo $this->typography->auto_typography($artist_details->notes); ?>
+        <?php echo $this->typography->auto_typography(strip_tags($artist_details->notes), '<p><em><strong><br><ul><li>'); ?>
     </div>
 
 

@@ -2,6 +2,14 @@
 <div id="content_left">
     <h2><?php echo htmlentities($track_list['track_details']->track); ?></h2>
 
+
+    <?php if ($track_list['track_details']->plays > 0): ?>
+        <div>
+            <p><?php echo $track_list['track_details']->track; ?> was <a href="<?php echo site_url('database/track/' . $track_list['track_details']->track_id . '/shows'); ?>">played live at these <?php echo $track_list['track_details']->plays; ?> shows</a></p>
+        </div>
+    <?php endif; ?>
+
+
     <div>
         <ul>
             <?php if ($track_list['track_details']->author) echo '<li><p>Written by ' . htmlentities($track_list['track_details']->author) . '</p></li>'; ?>
@@ -28,20 +36,20 @@
     <?php endif; ?>
 
 
-    <?php if(count($track_list['available']) > 0): ?>
-    <h3>Available on</h3>
-    <div>
-        <ul>
-            <?php foreach ($track_list['available'] as $available): ?>
+    <?php if (count($track_list['available']) > 0): ?>
+        <h3>Available on</h3>
+        <div>
+            <ul>
+                <?php foreach ($track_list['available'] as $available): ?>
 
-                <li><p><a href="<?php echo site_url('database/discography/' . $available->slug . '/' . $available->album_id); ?>"><?php echo htmlentities($available->album); ?> by <?php echo htmlentities($available->display); ?></a>
-                        <em>(<?php echo htmlentities($available->label); ?> - <?php echo $available->release_date; ?>)</em>
-                    </p>
-                </li>
-            <?php endforeach; ?>          
-        </ul>
+                    <li><p><a href="<?php echo site_url('database/discography/' . $available->slug . '/' . $available->album_id); ?>"><?php echo htmlentities($available->album); ?> by <?php echo htmlentities($available->display); ?></a>
+                            <em>(<?php echo htmlentities($available->label); ?> - <?php echo $available->release_date; ?>)</em>
+                        </p>
+                    </li>
+                <?php endforeach; ?>          
+            </ul>
 
-    </div>
+        </div>
     <?php endif; ?>
 
 

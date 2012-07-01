@@ -12,10 +12,22 @@
 /* End of file gigography.php */
 ?>
 <div id="content_left">
-    <h2><?php echo htmlentities($artist_details->display); ?> shows from <?php echo $year; ?></h2>
-    <ul>
-        <?php foreach ($show_list['list'] as $show): ?>
-        <li><p><a href="<?php echo site_url('/database/gigography/' . $artist_details->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) . ' @ ' . htmlentities($show->venue); ?></a></p></li>
-        <?php endforeach; ?>
-    </ul>
+    <?php if (isset($artist_details)): ?>
+        <h2><?php echo htmlentities($artist_details->display); ?> shows from <?php echo $year; ?></h2>
+    <?php else: ?>
+        <h2>Shows where <a href="<?php echo site_url('database/track/' . $track_details['track_details']->track_id); ?>"><?php echo htmlentities($track_details['track_details']->track); ?></a> was played live</h2>
+    <?php endif; ?>
+    <table class="gigography">
+        <tr><th>Date</th><th>Artist</th><th>Venue</th><th>Setlist</th></tr>
+            <?php foreach ($show_list['list'] as $show): ?>
+
+                <tr>
+                    <td><a href="<?php echo site_url('/database/gigography/' . $artist_details->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) ?></a></td>
+                    <td><?php echo $artist_details->display;?></td>
+                    <td><?php echo htmlentities($show->venue);?></td>
+                    <td><?php echo ($show->setlists > 0)?'yes': '';?></td>
+
+                </tr>   
+            <?php endforeach; ?>
+    </table>
 </div>

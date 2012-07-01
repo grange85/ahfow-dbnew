@@ -1,5 +1,4 @@
 
-<?php $this->firephp->log($discography); ?>
 
 <div id="content_left">
     <h2><?php echo htmlentities($artist_details->display) . ': ' . $section; ?></h2>

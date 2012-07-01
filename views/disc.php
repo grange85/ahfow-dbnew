@@ -1,4 +1,3 @@
-<?php $this->firephp->log($disc); ?>
 
 <div id="content_left">
     <h2><?php echo htmlentities($artist_details->display) . ' - ' . htmlentities($disc['details']->album); ?></h2>
