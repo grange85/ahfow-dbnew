@@ -2,6 +2,7 @@
 <div id="content_left">
     <h2><?php echo htmlentities($artist_details->display) . ' - ' . htmlentities($disc['details']->album); ?></h2>
 
+    <div class="clearfix">
     <?php
     if ($disc['details']->sleeve) {
         $image_props = array(
@@ -22,25 +23,22 @@
     ?>
 
 
-    <div>
         <p><em><?php echo htmlentities($disc['details']->format) . ' - ' . htmlentities($disc['details']->label) . ' (' . $disc['details']->release_date . ')'; ?></em></p>
         <p><?php echo $this->typography->auto_typography($disc['details']->notes); ?></p>
     </div>
-    <h4>Tracks</h4>
+    <h4">Tracks</h4>
     <div>
-        <ul>
+        <table class="discography">
+            <tr><th>Name</th><th>Author</th><th>Notes</th></tr>
             <?php foreach ($disc['tracks'] as $tracks): ?>
 
-                <li><p><a href="<?php echo site_url('database/track/' . $tracks->track_id); ?>"><?php echo htmlentities($tracks->track); ?></a>
-                        <?php if ($tracks->author): ?>
-
-                            <?php if ($tracks->notes != '') echo '<em>(' . htmlentities($tracks->notes) . ')</em>'; ?>
-                            <?php if ($tracks->author !== 'Krukowski/Wareham/Yang') echo '<em>(' . htmlentities($tracks->author) . ')</em>'; ?>
-                        <?php endif; ?>
+                <tr><td><a href="<?php echo site_url('database/track/' . $tracks->track_id); ?>"><?php echo htmlentities($tracks->track); ?></a></td>
+                            <td><?php if ($tracks->author !== '') echo '<em>' . htmlentities($tracks->author) . '</em>'; ?></td>
+                            <td><?php if ($tracks->releasenotes != '') echo '<em>' . htmlentities($tracks->releasenotes) . '</em>'; ?></td>
                     </p>
-                </li>
+                </tr>
             <?php endforeach; ?>          
-        </ul>
+        </table>
     </div>
 
     <?php if (count($disc['others']) > 0): ?>

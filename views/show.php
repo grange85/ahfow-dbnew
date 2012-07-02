@@ -17,19 +17,16 @@
 
     <?php if (count($show['setlist']) > 0): ?>
         <h3>Setlist</h3>
-        <ul>
+        <table class="gigography">
+            <tr><th>Name</th><th>Author</th><th>Notes</th></tr>
             <?php foreach ($show['setlist'] as $track): ?>
 
-                <li><p><a href="<?php echo site_url('database/track/' . $track->track_id); ?>"><?php echo htmlentities($track->track); ?></a>
-                        <?php if ($track->author): ?>
-
-                            <?php if ($track->notes != '') echo '<em>(' . htmlentities($track->notes) . ')</em>'; ?>
-                            <?php if ($track->author !== 'Krukowski/Wareham/Yang') echo '<em>(' . htmlentities($track->author) . ')</em>'; ?>
-                        <?php endif; ?>
-                    </p>
+                <tr><td><a href="<?php echo site_url('database/track/' . $track->track_id); ?>"><?php echo htmlentities($track->track); ?></a></td>
+                            <td><?php if ($track->author !== '') echo '<em>' . htmlentities($track->author) . '</em>'; ?></td>
+                            <td><?php if ($track->notes != '') echo '<em>' . htmlentities($track->notes) . '</em>'; ?></td>
                 </li>
             <?php endforeach; ?>
-        </ul>
+        </table>
 
     <?php endif; ?>
 </div>
