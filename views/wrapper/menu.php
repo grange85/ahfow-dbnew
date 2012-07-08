@@ -14,7 +14,8 @@ if (isset($artist_details)) {
     <li class="<?php if ($bln_artist) echo is_active('damon_and_naomi', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/damon_and_naomi'); ?>">Damon &amp; Naomi</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_wareham', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_wareham'); ?>">Dean Wareham</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
-    <li class="<?php if (!$bln_artist && $section !== 'home') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <li class="<?php if (!$bln_artist && $section !== 'home' && $section !== 'admin') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <?php if ($this->session->userdata('logged_in')): ?><li class="<?php if ($section === 'admin') echo 'active'; ?>"><p><a href="<?php echo site_url('admin'); ?>">Admin</a></p></li><?php endif; ?>
 </ul>
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
     <ul class="menu level1 clearfix">
@@ -63,11 +64,11 @@ endif;
 <?php if ($this->uri->segment(2) === 'gigography' && $this->uri->segment(4) !== 'show') : ?>
     <ul class="menu level2 clearfix">
         <?php foreach ($show_list['years'] as $active_year): ?>
-
             <li class="<?php echo is_active($year, $active_year->year); ?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug . '/' . $active_year->year); ?>"><?php echo $active_year->year; ?></a></p></li>
-
-
         <?php endforeach; ?>
+        <?php if ($artist_details->slug === 'damon_and_naomi' || $artist_details->slug === 'dean_and_britta' || $artist_details->slug === 'dean_wareham'): ?>
+            <li class="<?php echo is_active($year, 'upcoming');?>"><p><a href="<?php echo site_url('database/gigography/' . $artist_details->slug . '/upcoming');?>">Upcoming</a></p></li>
+        <?php endif; ?>
     </ul>         
 <?php endif; ?>
 
@@ -82,8 +83,8 @@ endif;
 <?php if ($this->uri->segment(2) === 'discography' && !$this->uri->segment(4)): ?>
     <ul class="menu level2 clearfix">
         <?php foreach ($discography as $key => $value): ?>
-        <li><p><a href="#<?php echo urlencode($key); ?>"><?php echo $key; ?></a></p></li>
-            <?php endforeach; ?>
+            <li><p><a href="#<?php echo urlencode($key); ?>"><?php echo $key; ?></a></p></li>
+        <?php endforeach; ?>
     </ul>
 <?php endif;
 ?>

@@ -158,7 +158,7 @@ class Ahfow_database extends MY_Model {
         }
     }
 
-    function get_shows_list($artist_id = null, $year = null, $track_id = null) {
+    function get_shows_list($artist_id = NULL, $year = NULL, $track_id = NULL, $upcoming = FALSE) {
         $sql = 'select 
                     artists.artist_id, 
                     display as artist, 
@@ -182,9 +182,17 @@ class Ahfow_database extends MY_Model {
             $sql .= 'and (track_id = ' . $track_id . ')';
         else {
             $sql .= ' and shows.artist_id = ' . $artist_id;
-            $sql .= ' and DATE_FORMAT(date,\'%Y\') = ' . $year;
+            if ($upcoming) {
+                $sql .= ' and (shows.date > curdate()-1) ';
+            } else {
+                $sql .= ' and DATE_FORMAT(date,\'%Y\') = ' . $year;
+            }
         }
+
+
         $sql .= " order by date ";
+
+        $this->firephp->log($sql);
         $query = $this->db->query($sql);
 
         $return['list'] = $query->result();

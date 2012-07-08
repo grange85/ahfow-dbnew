@@ -8,6 +8,11 @@ class Database extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ahfow_database');
+        if ($this->session->userdata('logged_in')) {
+            $this->username = $this->session->userdata('username');
+        } else {
+            $this->username = NULL;
+        }
     }
 
     public function index() {
@@ -23,6 +28,7 @@ class Database extends MY_Controller {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
         $data['page_title'] = 'Home';
+        $data['user'] = $this->username;
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view('home', $data);
@@ -103,9 +109,17 @@ class Database extends MY_Controller {
         if (count($args) === 1 || (count($args) > 1 && $args[1] !== 'show')) {
 
             if (count($args) > 1) {
-                if (!checkdate('01', '01', $args[1]))
+
+                if (is_numeric($args[1])) {
+
+                    if (!checkdate('01', '01', $args[1]))
+                        show_404();
+                    $data['year'] = $args[1];
+                } else if ($args[1] === 'upcoming') {
+                    $data['year'] = 'upcoming';
+                } else {
                     show_404();
-                $data['year'] = $args[1];
+                }
             } else {
                 switch ($data['artist_details']->artist_id) {
                     case 1:
@@ -128,7 +142,12 @@ class Database extends MY_Controller {
             }
             $selected_view = 'gigography';
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['year'];
-            $data['show_list'] = $this->ahfow_database->get_shows_list($data['artist_details']->artist_id, $data['year']);
+            
+            if ($data['year'] === 'upcoming') {
+                $data['show_list'] = $this->ahfow_database->get_shows_list($data['artist_details']->artist_id, null, null, TRUE);
+            } else {
+                $data['show_list'] = $this->ahfow_database->get_shows_list($data['artist_details']->artist_id, $data['year']);
+            }
         } else if (count($args) > 2 && $args[1] === 'show') {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
