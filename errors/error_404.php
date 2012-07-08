@@ -57,6 +57,9 @@ p {
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
+                <p>The A Head Full of Wishes database has been updated and consequently some things have been moved around, unfortunately it looks like the page you were looking for is one of them. It is almost certainly here somewhere... head over to the database home page to see if that helps.</p>
+                <p><a href="<?php echo site_url('database');?>">A Head Full of Wishes database</a></p>
+                <p><a href="http://www.fullofwishes.co.uk">A Head Full of Wishes news and blog</a></p>
 	</div>
 </body>
 </html>
