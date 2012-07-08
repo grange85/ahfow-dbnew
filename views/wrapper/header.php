@@ -17,7 +17,8 @@
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-386732-6']);
+            _gaq.push(['_setAccount', 'UA-386732-5']);
+            _gaq.push(['_setDomainName', 'fullofwishes.co.uk']);
             _gaq.push(['_trackPageview']);
 
             (function() {
@@ -26,7 +27,9 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
 
-        </script>
+        </script>        
+
+
     </head>
 
     <body>
