@@ -108,4 +108,44 @@ class Admin extends MY_Controller {
         $this->load->view('wrapper/footer');
     }
 
+    
+    public function biography() {
+        $args = func_get_args();
+        $data = array();
+        
+        if ($this->input->post()){
+            $this->firephp->log('here');
+            $this->firephp->log($this->input->post());
+            $this->ahfow_database->set_biography($this->input->post());
+        }
+        
+        
+        if (count($args) === 0) {
+            redirect('database');
+        } else {
+            $data['section'] = 'biography';
+            $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
+            $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist;
+            if (!$data['artist_details']) {
+                show_404();
+            }
+        }
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
+        $this->firephp->log($data);
+        $this->firephp->log($this->input->post());
+        $data['testcontent'] = $this->input->post('biography');
+        $data['user'] = $this->username;
+        $this->load->view('wrapper/header', $data);
+        $this->load->view('wrapper/menu', $data);
+        $this->load->view('edit/biography', $data);
+        $this->load->view('wrapper/sidebar', $data);
+        $this->load->view('wrapper/footer');
+    }    
+    
+    
+    
+    
+    
 }

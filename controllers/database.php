@@ -60,11 +60,11 @@ class Database extends MY_Controller {
                 }
             }
         }
+        $this->firephp->log($data);
         if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
-
-        $this->firephp->log($data);
+        $data['user'] = $this->username;
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);
@@ -89,6 +89,7 @@ class Database extends MY_Controller {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
         $this->firephp->log($data);
+        $data['user'] = $this->username;
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view('biography', $data);
@@ -100,6 +101,7 @@ class Database extends MY_Controller {
         $args = func_get_args();
         $data = array();
         $data['section'] = 'gigography';
+        $data['user'] = $this->username;
 
         if (count($args) === 0) {
             show_404();
@@ -232,6 +234,7 @@ class Database extends MY_Controller {
         if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);
         }
+        $data['user'] = $this->username;
         $this->load->view('wrapper/header', $data);
         $this->load->view('wrapper/menu', $data);
         $this->load->view($selected_view, $data);
@@ -244,6 +247,7 @@ class Database extends MY_Controller {
         $data = array();
         $data['section'] = 'lists';
         $data['page_title'] = 'Lists';
+        $data['user'] = $this->username;
 
         if (count($args) > 0) {
             if ($args[0] !== 'albums') {

@@ -368,5 +368,18 @@ class Ahfow_database extends MY_Model {
         $return['list'] = $query->result();
         return $return;
     }
+    
+    function set_biography($formdata) {
+        
+        $data = array('notes' => htmlspecialchars($formdata['biography']));
+        $where = 'artist_id = ' . $formdata['artist_id']; 
+        $str = $this->db->update_string('artists', $data, $where); 
+        $this->firephp->log($where);
+        $this->firephp->log($str);
+        $this->db->query($str);
+        
+    }
 
+    
+    
 }

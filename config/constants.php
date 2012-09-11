@@ -46,7 +46,7 @@ switch (ENVIRONMENT) {
         define('STATIC_HOST', 'http://static.fullofwishes.co.uk/ahfow');
         break;
     case 'development':
-        define('STATIC_HOST', 'http://fullofwishes-static.dev');
+        define('STATIC_HOST', 'http://static.fullofwishes.dev');
         break;
 }
 

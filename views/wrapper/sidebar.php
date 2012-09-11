@@ -5,6 +5,8 @@
     <?php if (isset($user)): ?>
         <p>Logged in as <strong><?php echo $user; ?></strong></p>
         <p><a href="<?php echo site_url('admin'); ?>">Admin</a></p>
+        <p><a href="<?php echo str_replace('database/', 'admin/', current_url()); ?>">Edit page</a></p>
+        
 
     <?php endif; ?>
 
