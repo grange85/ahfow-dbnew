@@ -26,8 +26,8 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
 
-
-            document.domain = window.location.hostname.replace('static.','');
+            
+            document.domain = window.location.hostname.replace('static.','db');
             tinyMCE.init({
                 language : 'en',
                 mode : 'specific_textareas',
