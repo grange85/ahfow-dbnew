@@ -27,7 +27,8 @@
             })();
 
             
-            document.domain = window.location.hostname.replace('static.','db');
+            document.domain = window.location.hostname.replace('static.','');
+            document.domain = window.location.hostname.replace('db.','');
             tinyMCE.init({
                 language : 'en',
                 mode : 'specific_textareas',
