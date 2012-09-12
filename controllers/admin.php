@@ -50,6 +50,7 @@ class Admin extends MY_Controller {
     public function login() {
         $args = func_get_args();
         $data = array();
+        $data['page_title'] = 'Login';
 
         if ($this->session->userdata('logged_in')) {
             redirect('admin');
@@ -112,7 +113,9 @@ class Admin extends MY_Controller {
     public function biography() {
         $args = func_get_args();
         $data = array();
-        
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }        
         if ($this->input->post()){
             $this->firephp->log('here');
             $this->firephp->log($this->input->post());

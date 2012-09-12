@@ -371,7 +371,14 @@ class Ahfow_database extends MY_Model {
     
     function set_biography($formdata) {
         
-        $data = array('notes' => htmlspecialchars($formdata['biography']));
+        
+        $data = array(
+                'notes' => htmlspecialchars($formdata['biography']),
+                'wikipedia' => $formdata['wikipedia'],
+                'image' => $formdata['image'],
+                'mbid' => $formdata['mbid'],
+                'website' => $formdata['website']
+            );
         $where = 'artist_id = ' . $formdata['artist_id']; 
         $str = $this->db->update_string('artists', $data, $where); 
         $this->firephp->log($where);
