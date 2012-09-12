@@ -27,7 +27,6 @@
             })();
 
             
-            document.domain = window.location.hostname.replace('static.','');
             document.domain = window.location.hostname.replace('db.','');
             console.log(document.domain);
             tinyMCE.init({
