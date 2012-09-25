@@ -1,41 +1,46 @@
+<?php $this->load->helper('musicbrainz_helper');?>
 
 <div id="content_left">
-    <h2><?php echo htmlentities($artist_details->display) . ' - ' . htmlentities($disc['details']->album); ?></h2>
+    <h2><?php echo htmlentities($disc->{'artist-credit'}->{'name-credit'}->artist->name) . ' - ' . htmlentities($disc->title); ?></h2>
+
+
+
+
 
     <div class="clearfix">
-    <?php
-    if ($disc['details']->sleeve) {
-        $image_props = array(
-            'src' => MEDIA_HOST . '/sleeves/' . $disc['details']->sleeve,
-            'alt' => htmlentities($disc['details']->album) . 'sleeve',
-            'width' => '200',
-            'height' => '200',
-            'title' => htmlentities($disc['details']->album) . 'sleeve'
-        );
+        <?php
+        if ($disc->ahfow->sleeve) {
+            $image_props = array(
+                'src' => MEDIA_HOST . '/sleeves/' . $disc->ahfow->sleeve,
+                'alt' => htmlentities($disc->title) . 'sleeve',
+                'width' => '200',
+                'height' => '200',
+                'title' => htmlentities($disc->title) . 'sleeve'
+            );
+            ?>
+
+
+            <div class="imagebox_right">
+                <?php echo img($image_props); ?>
+                <p><?php echo htmlentities($disc->title) . ' - ' . htmlentities($disc->{'artist-credit'}->{'name-credit'}->artist->name); ?></p>
+            </div>
+            <?php
+        }
         ?>
 
-        <div class="imagebox_right">
-            <?php echo img($image_props); ?>
-            <p><?php echo htmlentities($disc['details']->album) . ' - ' . htmlentities($disc['details']->artist); ?></p>
-        </div>
-        <?php
-    }
-    ?>
 
-
-        <p><em><?php echo htmlentities($disc['details']->format) . ' - ' . htmlentities($disc['details']->label) . ' (' . $disc['details']->release_date . ')'; ?></em></p>
-        <p><?php echo $this->typography->auto_typography($disc['details']->notes); ?></p>
+        <p><em><?php echo htmlentities($disc->{'medium-list'}->medium->format) . ' - ' . htmlentities($disc->{'label-info-list'}->{'label-info'}->label->name) . ' (' . $disc->date . ')'; ?></em></p>
+        <p><?php echo $this->typography->auto_typography($disc->ahfow->notes); ?></p>
     </div>
     <h4">Tracks</h4>
     <div>
         <table class="discography">
-            <tr><th>Name</th><th>Author</th><th>Notes</th></tr>
-            <?php foreach ($disc['tracks'] as $tracks): ?>
+            <tr><th>Name</th><th>Time</th><th>Notes</th></tr>
+            <?php foreach ($disc->{'medium-list'}->medium->{'track-list'}->track as $tracks): ?>
+                <?php $this->firephp->log($tracks); ?>
 
-                <tr><td><a href="<?php echo site_url('database/track/' . $tracks->track_id); ?>"><?php echo htmlentities($tracks->track); ?></a></td>
-                            <td><?php if ($tracks->author !== '') echo '<em>' . htmlentities($tracks->author) . '</em>'; ?></td>
-                            <td><?php if ($tracks->releasenotes != '') echo '<em>' . htmlentities($tracks->releasenotes) . '</em>'; ?></td>
-                    </p>
+                <tr><td><a href="<?php echo site_url('musicbrainz/track/' . $tracks->recording['id']); ?>"><?php echo htmlentities($tracks->recording->title); ?></a></td>
+                <td><?php echo format_milliseconds($tracks->recording->length); ?></td>
                 </tr>
             <?php endforeach; ?>          
         </table>
