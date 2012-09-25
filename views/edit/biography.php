@@ -23,10 +23,18 @@ $this->load->helper('form');
     <?php echo form_open(); ?>
     <h2>EDIT / <?php echo htmlentities($artist_details->display) . ': ' . $section; ?></h2>
     <h3>Artist:</h3> <p><?php
-    echo form_input('artist', $artist_details->display);
+        echo form_input(array(
+            'name' => 'display',
+            'value' => $artist_details->display,
+            'style' => 'width:100%;'
+        ));
     ?></p>    
     <h3>Image:</h3> <p><?php
-    echo form_input('image', $artist_details->image);
+        echo form_input(array(
+            'name' => 'image',
+            'value' => $artist_details->image,
+            'style' => 'width:100%;'
+        ));
     ?></p>    
     <h3>Notes:</h3>
     <div>
@@ -41,15 +49,27 @@ $this->load->helper('form');
 
         echo form_textarea($notesdata);
         ?>
-    <h3>Website:</h3> <p><?php
-    echo form_input('website', $artist_details->website);
-    ?></p>    
-    <h3>Wikipedia:</h3> <p><?php
-    echo form_input('wikipedia', $artist_details->wikipedia);
-    ?></p>    
-    <h3>Musicbrainz:</h3> <p><?php
-    echo form_input('mbid', $artist_details->mbid);
-    ?></p>    
+        <h3>Website:</h3> <p><?php
+        echo form_input(array(
+            'name' => 'website',
+            'value' => $artist_details->website,
+            'style' => 'width:100%;'
+        ));
+        ?></p>    
+        <h3>Wikipedia:</h3> <p><?php
+        echo form_input(array(
+            'name' => 'wikipedia',
+            'value' => $artist_details->wikipedia,
+            'style' => 'width:100%;'
+        ));
+        ?></p>    
+        <h3>Musicbrainz:</h3> <p><?php
+        echo form_input(array(
+            'name' => 'mbid',
+            'value' => $artist_details->mbid,
+            'style' => 'width:100%;'
+        ));
+        ?></p>    
 
     </div>
 
