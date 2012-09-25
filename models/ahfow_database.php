@@ -373,6 +373,7 @@ class Ahfow_database extends MY_Model {
         
         
         $data = array(
+                'display' => $formdata['display'],
                 'notes' => htmlspecialchars($formdata['biography']),
                 'wikipedia' => $formdata['wikipedia'],
                 'image' => $formdata['image'],
