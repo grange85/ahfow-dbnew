@@ -59,9 +59,14 @@ class Survey extends MY_Controller {
         }
         $data['section'] = 'survey';
         $data['page_title'] = 'survey form';
+        $this->firephp->log(uniqid('ahfow2012'));
         $this->load->view('survey', $data);
 //            $this->load->view('wrapper/sidebar', $data);
-        $this->firephp->log($data);
     }
+    
+    
+    public function process() {
+        echo(var_dump($_POST));
+    }    
 
 }

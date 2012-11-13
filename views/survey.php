@@ -42,17 +42,18 @@
         <div id="outer_container">
             <div id="inner_container" class="clearfix">
 
-                <form>
+                <form id="surveyform" action="<?php echo site_url('survey/process')?>" method="post">
+                    <input type="hidden" id="frmId" name="frmId" value="<?php echo uniqid('ahfow'.(string)date("Y"));?>" />
                     <h1>A Head Full of Wishes / 2012 survey</h1>
 
                     <div class="section" id="about_you-section">
                         <h3>About you</h3>
                         <div>
                             <label for="frmName">Name</label>
-                            <input type="text" id="frmName" placeholder="Name" />
+                            <input type="text" id="frmName" name="frmName" placeholder="Name" />
 
                             <label for="frmCountry">Country</label>
-                            <select id="frmCountry">
+                            <select id="frmCountry" name="frmCountry">
                                 <option value="United Kingdom">United Kingdom</option>
                                 <option value="United States">United States</option>
                                 <option value="">-------------</option>
@@ -327,7 +328,6 @@
                                     <h4>Favourite <?php echo($artist['artist_details']->display); ?> track</h4>
                                     <p>Select up to five</p>
                                     <div class="leftselect">
-                                        <p><input placeholder=" type here to filter the list" type="text" class="trackfilter" id="<?php echo($artist['artist_details']->slug); ?>-trackfilter"/></p>
                                         <select id="<?php echo($artist['artist_details']->slug); ?>-trackfrom" class="trackfrom" size="10">
                                             <?php
                                             foreach ($artist['tracklist']['list'] as $track) {
@@ -343,8 +343,8 @@
                                     </div>
 
                                     <div class="rightselect">
-                                        <select id="<?php echo($artist['artist_details']->slug); ?>-trackto" class="trackto" size="5">
-
+                                        <select multiple id="<?php echo($artist['artist_details']->slug); ?>-trackto" name="<?php echo($artist['artist_details']->slug); ?>-tracks" class="trackto" size="5">
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -360,7 +360,7 @@
                         <h3>Finish up</h3>
                         <div>
                             <label for="frmComments">Comments</label>
-                            <textarea id="frmComments" placeholder="Enter any comments here"></textarea>
+                            <textarea id="frmComments" name="frmComments" placeholder="Enter any comments here"></textarea>
                             <table id="surveySummary">
                                 <caption>Summary</caption>
                                 <tr><th>Section</th><th>Album</th><th>Tracks</th></tr>
