@@ -331,7 +331,7 @@
                                         <select id="<?php echo($artist['artist_details']->slug); ?>-trackfrom" class="trackfrom" size="10">
                                             <?php
                                             foreach ($artist['tracklist']['list'] as $track) {
-                                                echo "<option value='" . $track->id . "'>" . $track->track . "</option>";
+                                                echo "<option value='" . $track->track_id . "'>" . $track->track . "</option>";
                                             }
                                             ?>
                                         </select>
