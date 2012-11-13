@@ -26,3 +26,7 @@ Thumbs.db
 /nbproject/private/
 /nbproject/
 /public/
+/mbcache/
+/config/testing/
+/third_party/CIUnit/
+/tests/

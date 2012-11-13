@@ -55,6 +55,8 @@ define('SITE_NAME', 'A Head Full of Wishes');
 define('MEDIA_HOST', 'http://media.fullofwishes.co.uk');
 define('DEFAULT_CACHE_LENGTH',20);
 
+define('MB_CACHE_LENGTH',3600);
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

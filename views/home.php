@@ -20,9 +20,9 @@
         </div>
     <?php }?>
         <ul>
-            <li><p><a href="<?php echo site_url('database/biography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> biography</a></p></li>
-            <li><p><a href="<?php echo site_url('database/discography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> discography</a></p></li>
-            <li><p><a href="<?php echo site_url('database/gigography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> gigography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/biography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> biography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/discography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> discography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/gigography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> gigography</a></p></li>
             
         </ul>
         

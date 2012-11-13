@@ -35,7 +35,8 @@ class Ahfow_database extends MY_Model {
         }
     }
 
-    function get_discography($artist_id) {
+    function get_discography($artist_id, $survey = NULL) {
+
         $sql = 'select 
                     album_id, 
                     album, 
@@ -44,15 +45,19 @@ class Ahfow_database extends MY_Model {
                     DATE_FORMAT(release_date, \'%Y\') as release_date, 
                     version, 
                     label, 
+                    include,
                     album_types.type 
                 from 
                     albums inner join album_types on album_types.type_id = albums.type 
                 where 
-                    artist_id = ' . $artist_id . ' 
-                order by 
+                    artist_id = ' . $artist_id . ' ';
+        if ($survey !== NULL) {
+            $sql .= ' and album_id in (' . implode(',', $survey) . ') ';
+        }
+
+        $sql .= 'order by 
                     albums.type ASC, 
                     release_date ASC';
-
         $query = $this->db->query($sql);
 
         foreach ($query->result() as $item) {
@@ -192,7 +197,7 @@ class Ahfow_database extends MY_Model {
 
         $sql .= " order by date ";
 
-        $this->firephp->log($sql);
+//        $this->firephp->log($sql);
         $query = $this->db->query($sql);
 
         $return['list'] = $query->result();
@@ -343,6 +348,23 @@ class Ahfow_database extends MY_Model {
                         order by 
                             albumsort';
                 break;
+
+            case 'artisttracks' :
+                $sql = 'select distinct
+                            tracks.track_id, 
+                            track, 
+                            author, 
+                            LOWER(LEFT(tracksort, 1)) as sort 
+                        from 
+                            tracks 
+                        inner join album_track on tracks.track_id = album_track.track_id
+                        inner join albums on album_track.album_id = albums.album_id
+                        where 
+                            artist_id = ' . $keyword . ' 
+                        order by 
+                            tracksort';
+                break;
+
             case "covers":
                 $sql = 'select 
                             track_id, 
@@ -368,26 +390,23 @@ class Ahfow_database extends MY_Model {
         $return['list'] = $query->result();
         return $return;
     }
-    
+
     function set_biography($formdata) {
-        
-        
+
+
         $data = array(
-                'display' => $formdata['display'],
-                'notes' => htmlspecialchars($formdata['biography']),
-                'wikipedia' => $formdata['wikipedia'],
-                'image' => $formdata['image'],
-                'mbid' => $formdata['mbid'],
-                'website' => $formdata['website']
-            );
-        $where = 'artist_id = ' . $formdata['artist_id']; 
-        $str = $this->db->update_string('artists', $data, $where); 
-        $this->firephp->log($where);
-        $this->firephp->log($str);
+            'display' => $formdata['display'],
+            'notes' => htmlspecialchars($formdata['biography']),
+            'wikipedia' => $formdata['wikipedia'],
+            'image' => $formdata['image'],
+            'mbid' => $formdata['mbid'],
+            'website' => $formdata['website']
+        );
+        $where = 'artist_id = ' . $formdata['artist_id'];
+        $str = $this->db->update_string('artists', $data, $where);
+//        $this->firephp->log($where);
+//        $this->firephp->log($str);
         $this->db->query($str);
-        
     }
 
-    
-    
 }
