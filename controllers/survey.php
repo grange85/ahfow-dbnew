@@ -61,7 +61,7 @@ class Survey extends MY_Controller {
         $data['page_title'] = 'survey form';
         $this->load->view('survey', $data);
 //            $this->load->view('wrapper/sidebar', $data);
-//        $this->firephp->log($data);
+        $this->firephp->log($data);
     }
 
 }
