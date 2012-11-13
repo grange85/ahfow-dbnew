@@ -314,7 +314,7 @@
                             <div>
                                 <h4>Favourite <?php echo($artist['artist_details']->display); ?> album</h4>
 
-                                <select id="<?php echo($artist['artist_details']->slug); ?>-albumvote">
+                                <select id="<?php echo($artist['artist_details']->slug); ?>-albumvote" name="<?php echo($artist['artist_details']->slug); ?>-albumvote">
                                     <option>--select--</option>
                                     <?php
                                     foreach ($artist['discography']['Album'] as $album) {
