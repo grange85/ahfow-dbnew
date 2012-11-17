@@ -409,4 +409,76 @@ class Ahfow_database extends MY_Model {
         $this->db->query($str);
     }
 
+    function add_survey($formdata) {
+
+        $check = $this->db->query('select count(*) as count from new_survey_votes where vote_id = "' . $formdata['frmId'] . '"');
+        $check2 = $check->result();
+        if ($check2[0]->count > 0)
+            return FALSE;
+        $_bands = array(1 => 'galaxie_500', 2 => 'luna', 3 => 'damon_and_naomi', 7 => 'dean_and_britta');
+        $_person_data = array(
+            'vote_id' => $formdata['frmId'],
+            'name' => $formdata['frmName'],
+            'email' => $formdata['frmEmail'],
+            'age' => $formdata['frmAge'],
+            'country' => $formdata['frmCountry'],
+            'comments' => $formdata['frmComments'],
+            'survey_year' => date('Y-00-00')
+        );
+        $this->db->insert('new_survey_votes', $_person_data);
+
+        foreach ($_bands as $_band_id => $_band) {
+
+
+            if ($formdata['frm-' . $_band . '-tracks'] !== '') {
+                foreach (explode(',', $formdata['frm-' . $_band . '-tracks']) as $_track_id) {
+
+                    $_track_data = array(
+                        'vote_id' => $formdata['frmId'],
+                        'artist_id' => $_band_id,
+                        'track_id' => $_track_id
+                    );
+
+                    $this->db->insert('survey_tracks', $_track_data);
+                }
+            }
+
+            if (is_numeric($formdata[$_band . '-albumvote'])) {
+                $_album_data = array(
+                    'vote_id' => $formdata['frmId'],
+                    'artist_id' => $_band_id,
+                    'album_id' => $formdata[$_band . '-albumvote']
+                );
+                $this->db->insert('survey_albums', $_album_data);
+            }
+        }
+
+        $expires = strtotime('2013-01-01') - time();
+        var_dump($expires);
+        
+        $this->firephp->log('Expires: ' . $expires);
+
+        $cookie = array(
+            'name' => 'ahfowsurvey',
+            'value' => $formdata['frmId'],
+            'expire' => $expires
+        );
+
+        $this->input->set_cookie($cookie);
+
+        return TRUE;
+    }
+
+    function get_survey_ages() {
+        $query = $this->db->query('select age_id, age_range from survey_ages');
+        $i = 0;
+        foreach ($query->result() as $row) {
+            $return[$i]['age_id'] = $row->age_id;
+            $return[$i]['age_range'] = $row->age_range;
+            $i++;
+        }
+        return $return;
+    }
+
 }
+

@@ -12,7 +12,7 @@ class Survey extends MY_Controller {
             'albums' => array(1, 6, 8, 13, 194, 200),
         ),
         array(
-            'artist' => 'luna', 
+            'artist' => 'luna',
             'artist_id' => 2,
             'albums' => array(24, 26, 28, 30, 34, 36, 152, 192),
         ),
@@ -50,23 +50,45 @@ class Survey extends MY_Controller {
         $args = func_get_args();
         $data = array();
         $i = 0;
-
-        foreach($this->_surveyConfig as $artist) {
+        if ($this->input->cookie('ahfowsurvey'))
+            redirect('survey/completed');
+        foreach ($this->_surveyConfig as $artist) {
             $data['artists'][$i]['artist_details'] = $this->ahfow_database->get_artist_details($artist['artist_id']);
             $data['artists'][$i]['discography'] = $this->ahfow_database->get_discography($artist['artist_id'], $artist['albums']);
             $data['artists'][$i]['tracklist'] = $this->ahfow_database->get_track_list('artisttracks', $artist["artist_id"]);
             $i++;
         }
+        $data['ages'] = $this->ahfow_database->get_survey_ages();
+//        $this->firephp->log($data['ages']);
         $data['section'] = 'survey';
         $data['page_title'] = 'survey form';
+        $data['message_code'] = FALSE;
         $this->firephp->log(uniqid('ahfow2012'));
         $this->load->view('survey', $data);
 //            $this->load->view('wrapper/sidebar', $data);
     }
-    
-    
+
     public function process() {
-        echo(var_dump($_POST));
-    }    
+        $_complete = $this->ahfow_database->add_survey($_POST);
+        if ($_complete) {
+//            redirect('survey/completed');
+        } else {
+            $data['message'] = 'There was a problem';
+            $data['message_code'] = 1;
+            $data['section'] = 'survey';
+            $data['page_title'] = 'survey error';
+            $this->load->view('survey', $data);
+        }
+    }
+
+    public function completed() {
+        if (!$this->input->cookie('ahfowsurvey'))
+            redirect('survey/surveyform');
+        $data['message'] = 'Survey completed';
+        $data['message_code'] = 2;
+        $data['section'] = 'survey';
+        $data['page_title'] = 'survey complete';
+        $this->load->view('survey', $data);
+    }
 
 }
