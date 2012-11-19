@@ -489,5 +489,35 @@ class Ahfow_database extends MY_Model {
         return $return;
     }
 
+    function get_survey_results($artist_id, $year) {
+
+        $sqlalbums = 'SELECT s.album_id, a.album, x.display, count( s.album_id ) AS votes, ASIN, sleeve
+                    FROM survey_albums s 
+                    INNER JOIN albums a ON s.album_id = a.album_id 
+                    INNER JOIN artists x ON x.artist_id = a.artist_id 
+                    INNER JOIN new_survey_votes sv ON sv.vote_id = s.vote_id 
+                    WHERE s.artist_id = ' . $artist_id . ' AND YEAR( sv.survey_year ) = \'' . $year . '\' 
+                    GROUP BY ( s.album_id ) 
+                    ORDER BY votes DESC, album ASC';
+
+        $sqltracks = 'SELECT s.track_id, t.track, count( s.track_id ) AS votes 
+                    FROM survey_tracks s 
+                    INNER JOIN tracks t ON t.track_id = s.track_id 
+                    INNER JOIN artists x ON x.artist_id = s.artist_id 
+                    INNER JOIN new_survey_votes sv ON sv.vote_id = s.vote_id 
+                    WHERE s.artist_id = ' . $artist_id . ' AND YEAR( sv.survey_year ) = \'' . $year . '\' 
+                    GROUP BY (s.track_id) 
+                    HAVING votes >= 1 
+                    ORDER BY votes DESC, track ASC';
+        
+        $albums = $this->db->query($sqlalbums);
+        $tracks = $this->db->query($sqltracks);
+        $return['albums'] = $albums->result();
+        $return['tracks'] = $tracks->result();
+        $this->firephp->log($return);
+        return $return;
+        
+    }
+
 }
 
