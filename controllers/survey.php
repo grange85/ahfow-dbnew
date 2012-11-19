@@ -71,7 +71,7 @@ class Survey extends MY_Controller {
     public function process() {
         $_complete = $this->ahfow_database->add_survey($_POST);
         if ($_complete) {
-//            redirect('survey/completed');
+            redirect('survey/completed');
         } else {
             $data['message'] = 'There was a problem';
             $data['message_code'] = 1;
