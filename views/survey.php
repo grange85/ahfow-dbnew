@@ -46,7 +46,7 @@
                 $this->firephp->log('code:' . $message_code);
                 if ($message_code) {
                     ?>
-                    <h1>A Head Full of Wishes / 2012 survey2</h1>
+                    <h1>A Head Full of Wishes / 2012 survey</h1>
 
                     <div class="section2">
                         <?php
@@ -66,7 +66,7 @@
                             Contact
                         </h2>
                         <p>Please email me about anything to do with this survey at <a href="mailto:andy@fullofwishes.co.uk?subject=AHFoW survey: <?php echo $this->input->cookie('ahfowsurvey');?>">andy@fullofwishes.co.uk</a>, and please include the following reference number</p>
-                        <p>Reference: <?php echo  $this->input->cookie('ahfowsurvey');?>
+                        <p>Reference: <strong><?php echo  $this->input->cookie('ahfowsurvey');?></strong>
 
 
                     </div>

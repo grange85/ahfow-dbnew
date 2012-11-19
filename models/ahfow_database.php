@@ -455,7 +455,7 @@ class Ahfow_database extends MY_Model {
 
         $expires = strtotime('2013-01-01') - time();
 //        var_dump($expires);
-        
+
         $this->firephp->log('Expires: ' . $expires);
 
         $cookie = array(
@@ -465,6 +465,15 @@ class Ahfow_database extends MY_Model {
         );
 
         $this->input->set_cookie($cookie);
+
+        $this->load->library('email');
+
+        $this->email->from('andy@fullofwishes.co.uk', 'AHFoW Survey');
+        $this->email->to('andy@fullofwishes.co.uk');
+        $this->email->subject('Survey: ' . $formdata['frmId']);
+        $this->email->message(print_r($_POST, true));
+        $this->email->send();
+
 
         return TRUE;
     }
