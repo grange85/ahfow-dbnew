@@ -454,7 +454,7 @@ class Ahfow_database extends MY_Model {
         }
 
         $expires = strtotime('2013-01-01') - time();
-        var_dump($expires);
+//        var_dump($expires);
         
         $this->firephp->log('Expires: ' . $expires);
 
