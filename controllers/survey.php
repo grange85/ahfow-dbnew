@@ -100,7 +100,7 @@ class Survey extends MY_Controller {
             case 'dean_and_britta' :
                 $data['artist'] = $args[1];
                 $data['artist_id'] = $artists[$args[1]];
-                
+                $data['artist_details'] = $this->ahfow_database->get_artist_details($data['artist_id']);
                 $data['artist_results'] = $this->ahfow_database->get_survey_results($artists[$args[1]],$args[0]);
                 break;
             default:

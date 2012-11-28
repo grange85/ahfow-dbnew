@@ -41,7 +41,47 @@
     <body>
         <div id="outer_container">
             <div id="inner_container" class="clearfix">
-                <h1>Survey Results : <?php echo $artist; ?></h1>
+                <h1>Survey Results : <?php echo $artist_details->display; ?></h1>
+                <ul>
+                    <li><a href="<?php echo site_url('survey/view/2012/galaxie_500');?>">Galaxie 500</a></li>
+                    <li><a href="<?php echo site_url('survey/view/2012/luna');?>">Luna</a></li>
+                    <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi');?>">Damon &amp; Naomi</a></li>
+                    <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta');?>">Dean &amp; Britta</a></li>
+                </ul>
+
+                <h2>Album</h2>
+                <?php
+                $this->firephp->log($artist_results);
+                foreach ($artist_results['albums'] as $result) {
+                    ?>
+                    <div class="surveyalbumbox clearfix">
+                        <div class="surveyalbumimage">
+                            <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
+                        </div>
+                        <div class="surveyalbumdetails">
+                            <h3><?php echo $result->album; ?></h3>
+                            <p><?php echo $result->votes; ?> votes</p>
+                        </div>
+                    </div>
+
+                    <?php
+                }
+                ?>    
+
+
+                <h2>Track</h2>
+                <ol>
+                    <?php
+                    foreach ($artist_results['tracks'] as $track) {
+                        ?>
+                        <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+
+                        <?php
+                    }
+                    ?>  
+                </ol>
+
+
 
             </div>
         </div>
