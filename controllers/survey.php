@@ -51,7 +51,7 @@ class Survey extends MY_Controller {
         $data = array();
         $i = 0;
         if ($this->input->cookie('ahfowsurvey'))
-            redirect('survey/completed/2');
+            redirect('survey/completed/1');
         foreach ($this->_surveyConfig as $artist) {
             $data['artists'][$i]['artist_details'] = $this->ahfow_database->get_artist_details($artist['artist_id']);
             $data['artists'][$i]['discography'] = $this->ahfow_database->get_discography($artist['artist_id'], $artist['albums']);

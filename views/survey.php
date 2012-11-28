@@ -55,7 +55,7 @@
                                 echo ('It appears you have already completed the survey if you think this is wrong please get in touch.');
                                 break;
                             case 2:
-                                echo ('Thank you for completing the survey, if you\'d like to get in touch about anything relating to this survey please get in touch.');
+                                echo ('Thank you for completing the survey, if you\'d like to get in touch about anything relating to this survey please do.');
                                 break;
                             default:
                                 echo ('If you\'d like to get in touch about anything relating to this survey please get in touch.');
