@@ -98,10 +98,10 @@ class Survey extends MY_Controller {
             case 'luna':
             case 'damon_and_naomi' :
             case 'dean_and_britta' :
-                $data['page_title'] = $args[1] . ' ' . $args[0] . 'survey results';
                 $data['artist'] = $args[1];
                 $data['artist_id'] = $artists[$args[1]];
                 $data['artist_details'] = $this->ahfow_database->get_artist_details($data['artist_id']);
+                $data['page_title'] = $data['artist_details']->display . ' ' . $args[0] . ' survey results';
                 $data['artist_results'] = $this->ahfow_database->get_survey_results($artists[$args[1]],$args[0]);
                 break;
             default:
