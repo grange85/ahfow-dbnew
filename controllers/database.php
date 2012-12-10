@@ -36,6 +36,24 @@ class Database extends MY_Controller {
         $this->load->view('wrapper/footer');
     }
 
+    
+        public function search() {
+        $data = array();
+        $data['section'] = 'search';
+        $data['artist_list'] = $this->ahfow_database->get_artists();
+        if (ENVIRONMENT === 'production') {
+            $this->output->cache(DEFAULT_CACHE_LENGTH);
+        }
+        $data['page_title'] = 'Search';
+        $data['user'] = $this->username;
+        $this->load->view('wrapper/header', $data);
+        $this->load->view('wrapper/menu', $data);
+        $this->load->view('search', $data);
+        $this->load->view('wrapper/sidebar', $data);
+        $this->load->view('wrapper/footer');
+    }
+    
+    
     public function discography() {
         $args = func_get_args();
         $data = array();

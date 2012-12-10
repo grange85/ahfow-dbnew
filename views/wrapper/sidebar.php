@@ -1,5 +1,6 @@
 <?php ?>
 <div id="content_right">
+
     <h2>Related links</h2>
 
     <?php if (isset($user)): ?>

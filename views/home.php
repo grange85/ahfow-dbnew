@@ -1,10 +1,10 @@
 <div id="content_left">
     <h2>Home</h2>
-
-
+    <gcse:searchbox-only resultsUrl="<?php echo site_url($this->uri->rsegment(1) . '/search/');?>" newWindow="false" queryParameterName="q">
+</gcse:searchbox-only>
     <?php 
     
-    $this->firephp->log($this->uri);
+
     
     foreach ($artist_list as $artist):?>
     <div class="artist_box clearfix">

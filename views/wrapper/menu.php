@@ -14,7 +14,8 @@ if (isset($artist_details)) {
     <li class="<?php if ($bln_artist) echo is_active('damon_and_naomi', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/damon_and_naomi'); ?>">Damon &amp; Naomi</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_wareham', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_wareham'); ?>">Dean Wareham</a></p></li>
     <li class="<?php if ($bln_artist) echo is_active('dean_and_britta', $artist_details->slug); ?>"><p><a href="<?php echo site_url('database/biography/dean_and_britta'); ?>">Dean &amp; Britta</a></p></li>
-    <li class="<?php if (!$bln_artist && $section !== 'home' && $section !== 'admin') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <li class="<?php if (!$bln_artist && $section !== 'home' && $section !== 'admin' && $section !== 'search') echo 'active'; ?>"><p><a href="<?php echo site_url('database/lists'); ?>">Lists</a></p></li>
+    <li class="<?php if ($section === 'search') echo 'active'; ?>"><p><a href="<?php echo site_url('database/search'); ?>">Search</a></p></li>
     <?php if ($this->session->userdata('logged_in')): ?><li class="<?php if ($section === 'admin') echo 'active'; ?>"><p><a href="<?php echo site_url('admin'); ?>">Admin</a></p></li><?php endif; ?>
 </ul>
 <?php if ($this->uri->segment(3) && $bln_artist) : ?>
