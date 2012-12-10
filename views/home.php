@@ -2,7 +2,11 @@
     <h2>Home</h2>
 
 
-    <?php foreach ($artist_list as $artist):?>
+    <?php 
+    
+    $this->firephp->log($this->uri);
+    
+    foreach ($artist_list as $artist):?>
     <div class="artist_box clearfix">
     <?php
     if ($artist->image) {
@@ -20,9 +24,9 @@
         </div>
     <?php }?>
         <ul>
-            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/biography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> biography</a></p></li>
-            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/discography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> discography</a></p></li>
-            <li><p><a href="<?php echo site_url($this->uri->segment(1) . '/gigography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> gigography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->rsegment(1) . '/biography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> biography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->rsegment(1) . '/discography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> discography</a></p></li>
+            <li><p><a href="<?php echo site_url($this->uri->rsegment(1) . '/gigography/' . $artist->slug);?>"><?php echo htmlentities($artist->display);?> gigography</a></p></li>
             
         </ul>
         
