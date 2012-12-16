@@ -509,14 +509,25 @@ class Ahfow_database extends MY_Model {
                     GROUP BY (s.track_id) 
                     HAVING votes >= 1 
                     ORDER BY votes DESC, track ASC';
-        
+
         $albums = $this->db->query($sqlalbums);
         $tracks = $this->db->query($sqltracks);
         $return['albums'] = $albums->result();
         $return['tracks'] = $tracks->result();
         $this->firephp->log($return);
         return $return;
-        
+    }
+
+    function get_survey_summary($year) {
+        $sqlResponses = 'SELECT count(*) as count from new_survey_votes where YEAR(survey_year) = \'' . $year . '\'';
+        $sqlCountries = 'SELECT country, count(country) as count FROM `new_survey_votes` where country NOT LIKE \'%Select%\' and YEAR(survey_year) = \'' . $year . '\' group by country order by count DESC';
+        $sqlAges = 'SELECT sa.age_range, sv.age, count( sv.age ) AS count FROM new_survey_votes sv LEFT JOIN survey_ages sa ON sv.age = sa.age_id WHERE age <> 1 and YEAR(survey_year) = \'' . $year . '\' GROUP BY sv.age ORDER BY sv.age ASC ';
+        $responses = $this->db->query($sqlResponses)->result();
+        $return['responses'] = $responses[0]->count;
+        $return['countries'] = $this->db->query($sqlCountries)->result();
+        $return['ages'] = $this->db->query($sqlAges)->result();
+        $this->firephp->log($return);
+        return $return;
     }
 
 }

@@ -41,47 +41,96 @@
     <body>
         <div id="outer_container">
             <div id="inner_container" class="clearfix">
-                <h1>Survey Results : <?php echo $artist_details->display; ?></h1>
-                <ul>
-                    <li><a href="<?php echo site_url('survey/view/2012/galaxie_500');?>">Galaxie 500</a></li>
-                    <li><a href="<?php echo site_url('survey/view/2012/luna');?>">Luna</a></li>
-                    <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi');?>">Damon &amp; Naomi</a></li>
-                    <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta');?>">Dean &amp; Britta</a></li>
-                </ul>
 
-                <h2>Album</h2>
-                <?php
-                $this->firephp->log($artist_results);
-                foreach ($artist_results['albums'] as $result) {
-                    ?>
-                    <div class="surveyalbumbox clearfix">
-                        <div class="surveyalbumimage">
-                            <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
-                        </div>
-                        <div class="surveyalbumdetails">
-                            <h3><?php echo $result->album; ?></h3>
-                            <p><?php echo $result->votes; ?> votes</p>
-                        </div>
-                    </div>
 
+                <?php if ($survey_section == 'artist'): ?>
+                    <h1>Survey Results : <?php echo $artist_details->display; ?></h1>
+                    <ul>
+                        <li><a href="<?php echo site_url('survey/view/2012/summary'); ?>">Summary</a></li>
+                        <li><a href="<?php echo site_url('survey/view/2012/galaxie_500'); ?>">Galaxie 500</a></li>
+                        <li><a href="<?php echo site_url('survey/view/2012/luna'); ?>">Luna</a></li>
+                        <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi'); ?>">Damon &amp; Naomi</a></li>
+                        <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta'); ?>">Dean &amp; Britta</a></li>
+                    </ul>
+
+                    <h2>Album</h2>
                     <?php
-                }
-                ?>    
-
-
-                <h2>Track</h2>
-                <ol>
-                    <?php
-                    foreach ($artist_results['tracks'] as $track) {
+                    $this->firephp->log($artist_results);
+                    foreach ($artist_results['albums'] as $result) {
                         ?>
-                        <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+                        <div class="surveyalbumbox clearfix">
+                            <div class="surveyalbumimage">
+                                <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
+                            </div>
+                            <div class="surveyalbumdetails">
+                                <h3><?php echo $result->album; ?></h3>
+                                <p><?php echo $result->votes; ?> votes</p>
+                            </div>
+                        </div>
 
                         <?php
                     }
-                    ?>  
-                </ol>
+                    ?>    
 
 
+                    <h2>Track</h2>
+                    <ol>
+                        <?php
+                        foreach ($artist_results['tracks'] as $track) {
+                            ?>
+                            <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+
+                            <?php
+                        }
+                        ?>  
+                    </ol>
+
+                    <?php
+                else:
+                    ?>
+
+                    <div id="survey_summary">
+
+
+
+
+
+                        <h1>Survey Results : Summary</h1>
+                        <ul>
+                            <li><a href="<?php echo site_url('survey/view/2012/summary'); ?>">Summary</a></li>
+                            <li><a href="<?php echo site_url('survey/view/2012/galaxie_500'); ?>">Galaxie 500</a></li>
+                            <li><a href="<?php echo site_url('survey/view/2012/luna'); ?>">Luna</a></li>
+                            <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi'); ?>">Damon &amp; Naomi</a></li>
+                            <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta'); ?>">Dean &amp; Britta</a></li>
+                        </ul>
+
+                        <h2>Responses</h2>
+                        <?php
+                        echo $survey_summary['responses'];
+                        ?>
+                        <h2>Ages</h2>
+                        <?php
+                        echo '<table>';
+                        foreach ($survey_summary['ages'] as $age) {
+                            echo '<tr><th>' . $age->age_range . '</th><td>' . $age->count . '</td></tr>';
+                        }
+                        echo '</table>';
+                        ?>               
+
+                        <h2>Countries</h2>
+                        <?php
+                        echo '<table>';
+                        foreach ($survey_summary['countries'] as $country) {
+                            echo '<tr><th>' . $country->country . '</th><td>' . $country->count . '</td></tr>';
+                        }
+                        echo '</table>';
+                        ?>               
+
+                    </div>
+
+                <?php
+                endif;
+                ?>
 
             </div>
         </div>
