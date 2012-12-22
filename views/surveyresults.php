@@ -5,6 +5,8 @@
  */
 
 // put your code here
+
+$this->load->helper('album_helper');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,95 +45,90 @@
             <div id="inner_container" class="clearfix">
 
 
-                <?php if ($survey_section == 'artist'): ?>
-                    <h1>Survey Results : <?php echo $artist_details->display; ?></h1>
-                    <ul>
-                        <li><a href="<?php echo site_url('survey/view/2012/summary'); ?>">Summary</a></li>
-                        <li><a href="<?php echo site_url('survey/view/2012/galaxie_500'); ?>">Galaxie 500</a></li>
-                        <li><a href="<?php echo site_url('survey/view/2012/luna'); ?>">Luna</a></li>
-                        <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi'); ?>">Damon &amp; Naomi</a></li>
-                        <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta'); ?>">Dean &amp; Britta</a></li>
+                <h1>A Head Full of Wishes survey results : <?php echo $year; ?></h1>
+                <div id="survey_results_menu" class="clearfix">
+                    <ul class="tabs">
+                        <li><a href="#summary">Summary</a></li>
+                        <li><a href="#galaxie_500">Galaxie 500</a></li>
+                        <li><a href="#luna">Luna</a></li>
+                        <li><a href="#damon_and_naomi">Damon &amp; Naomi</a></li>
+                        <li><a href="#dean_and_britta">Dean &amp; Britta</a></li>
                     </ul>
+                </div>
 
-                    <h2>Album</h2>
-                    <?php
-                    $this->firephp->log($artist_results);
-                    foreach ($artist_results['albums'] as $result) {
-                        ?>
-                        <div class="surveyalbumbox clearfix">
-                            <div class="surveyalbumimage">
-                                <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
-                            </div>
-                            <div class="surveyalbumdetails">
-                                <h3><?php echo $result->album; ?></h3>
-                                <p><?php echo $result->votes; ?> votes</p>
-                            </div>
-                        </div>
+                <div id="survey_results" class="clearfix">
 
-                        <?php
-                    }
-                    ?>    
-
-
-                    <h2>Track</h2>
-                    <ol>
-                        <?php
-                        foreach ($artist_results['tracks'] as $track) {
-                            ?>
-                            <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
-
+                    <div id="summary">
+                        <h2>Summary</h2>
+                        <h3>Responses</h3>
+                        <div>
                             <?php
-                        }
-                        ?>  
-                    </ol>
+                            echo $survey_summary['responses'];
+                            ?>
+                            <h3>Ages</h3>
+                            <?php
+                            echo '<table>';
+                            foreach ($survey_summary['ages'] as $age) {
+                                echo '<tr><th>' . $age->age_range . '</th><td>' . $age->count . '</td></tr>';
+                            }
+                            echo '</table>';
+                            ?>               
 
-                    <?php
-                else:
-                    ?>
-
-                    <div id="survey_summary">
-
-
-
-
-
-                        <h1>Survey Results : Summary</h1>
-                        <ul>
-                            <li><a href="<?php echo site_url('survey/view/2012/summary'); ?>">Summary</a></li>
-                            <li><a href="<?php echo site_url('survey/view/2012/galaxie_500'); ?>">Galaxie 500</a></li>
-                            <li><a href="<?php echo site_url('survey/view/2012/luna'); ?>">Luna</a></li>
-                            <li><a href="<?php echo site_url('survey/view/2012/damon_and_naomi'); ?>">Damon &amp; Naomi</a></li>
-                            <li><a href="<?php echo site_url('survey/view/2012/dean_and_britta'); ?>">Dean &amp; Britta</a></li>
-                        </ul>
-
-                        <h2>Responses</h2>
-                        <?php
-                        echo $survey_summary['responses'];
-                        ?>
-                        <h2>Ages</h2>
-                        <?php
-                        echo '<table>';
-                        foreach ($survey_summary['ages'] as $age) {
-                            echo '<tr><th>' . $age->age_range . '</th><td>' . $age->count . '</td></tr>';
-                        }
-                        echo '</table>';
-                        ?>               
-
-                        <h2>Countries</h2>
-                        <?php
-                        echo '<table>';
-                        foreach ($survey_summary['countries'] as $country) {
-                            echo '<tr><th>' . $country->country . '</th><td>' . $country->count . '</td></tr>';
-                        }
-                        echo '</table>';
-                        ?>               
-
+                            <h3>Countries</h3>
+                            <?php
+                            echo '<table>';
+                            foreach ($survey_summary['countries'] as $country) {
+                                echo '<tr><th>' . $country->country . '</th><td>' . $country->count . '</td></tr>';
+                            }
+                            echo '</table>';
+                            ?>    
+                        </div>
                     </div>
 
-                <?php
-                endif;
-                ?>
 
+                    <?php
+                    foreach ($artists as $key => $value) {
+                        ?>
+                        <div id="<?php echo $key; ?>">
+                            <h2><?php echo $artist[$key]['artist_details']->display; ?></h2>
+                            <div>
+                                <h3>Album</h3>
+                                <?php
+//                    $this->firephp->log($artist_results);
+                                foreach ($artist[$key]['artist_results']['albums'] as $result) {
+                                    ?>
+                                    <div class="surveyalbumbox clearfix">
+                                        <div class="surveyalbumdetails">
+                                            <h3><?php echo $result->album; ?></h3>
+                                            <p><?php echo $result->votes; ?> votes</p>
+                                            <div class="surveyalbumimage">
+                                                <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                }
+                                ?>    
+
+
+                                <h3>Track</h3>
+                                <ol>
+                                    <?php
+                                    foreach ($artist[$key]['artist_results']['tracks'] as $track) {
+                                        ?>
+                                        <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+
+                                        <?php
+                                    }
+                                    ?>  
+                                </ol>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </body>

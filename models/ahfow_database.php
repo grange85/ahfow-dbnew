@@ -514,7 +514,6 @@ class Ahfow_database extends MY_Model {
         $tracks = $this->db->query($sqltracks);
         $return['albums'] = $albums->result();
         $return['tracks'] = $tracks->result();
-        $this->firephp->log($return);
         return $return;
     }
 
@@ -526,7 +525,7 @@ class Ahfow_database extends MY_Model {
         $return['responses'] = $responses[0]->count;
         $return['countries'] = $this->db->query($sqlCountries)->result();
         $return['ages'] = $this->db->query($sqlAges)->result();
-        $this->firephp->log($return);
+//        $this->firephp->log($return);
         return $return;
     }
 
