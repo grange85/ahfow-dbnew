@@ -47,6 +47,9 @@ class Survey extends MY_Controller {
     }
 
     public function surveyform() {
+        if (!SURVEY_OPEN) {
+            redirect('survey/closed');
+        }
         $args = func_get_args();
         $data = array();
         $i = 0;
@@ -89,49 +92,39 @@ class Survey extends MY_Controller {
         $this->load->view('survey', $data);
     }
 
+    public function closed() {
+        $args = func_get_args();
+        $data['message'] = 'Survey closed';
+        $data['section'] = 'survey';
+        $data['page_title'] = 'survey closed';
+        $this->load->view('survey_closed', $data);
+    }
+
     public function view() {
         $args = func_get_args();
         $artists = array('galaxie_500' => 1, 'luna' => 2, 'damon_and_naomi' => 3, 'dean_and_britta' => 7);
+        if (!is_numeric($args[0])) {
+            redirect('survey/view/' . SURVEY_CURRENT);
+        }
         $args[0] = (is_numeric($args[0])) ? $args[0] : 2012;
+        $data['page_title'] = 'Survey results ' . $args[0];
         $data['survey_summary'] = $this->ahfow_database->get_survey_summary($args[0]);
 
-        if (array_key_exists(1, $args)) {
-            switch ($args[1]) {
-                case 'galaxie_500':
-                case 'luna':
-                case 'damon_and_naomi' :
-                case 'dean_and_britta' :
-                    $data['survey_section'] = 'artist';
-                    $data['artist'] = $args[1];
-                    $data['artist_id'] = $artists[$args[1]];
-                    $data['artist_details'] = $this->ahfow_database->get_artist_details($data['artist_id']);
-                    $data['page_title'] = $data['artist_details']->display . ' ' . $args[0] . ' survey results';
-                    $data['artist_results'] = $this->ahfow_database->get_survey_results($artists[$args[1]], $args[0]);
-                case 'full' :
-                    break;
-                case 'summary' :
-                    $data['survey_section'] = 'summary';
-                    $data['survey_summary'] = $this->ahfow_database->get_survey_summary($args[0]);
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            $data['artists'] = $artists;
-            $data['year'] = $args[0];
+        $data['artists'] = $artists;
+        $data['year'] = $args[0];
 
-            foreach ($artists as $key => $value) {
+        foreach ($artists as $key => $value) {
 //                $this->firephp->log($key . ' ' . $value);
-                $data['artist'][$key]['artist'] = $key;
-                $data['artist'][$key]['artist_id'] = $value;
-                $data['artist'][$key]['artist_details'] = $this->ahfow_database->get_artist_details($value);
-                $data['artist'][$key]['artist_results'] = $this->ahfow_database->get_survey_results($value, $args[0]);
-            }
+            $data['artist'][$key]['artist'] = $key;
+            $data['artist'][$key]['artist_id'] = $value;
+            $data['artist'][$key]['artist_details'] = $this->ahfow_database->get_artist_details($value);
+            $data['artist'][$key]['artist_results'] = $this->ahfow_database->get_survey_results($value, $args[0]);
         }
 
 
         $this->firephp->log($data);
         $this->load->view('surveyresults', $data);
+        $this->load->view('wrapper/footer');
     }
 
 }

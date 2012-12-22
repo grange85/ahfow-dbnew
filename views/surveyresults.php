@@ -45,7 +45,7 @@ $this->load->helper('album_helper');
             <div id="inner_container" class="clearfix">
 
 
-                <h1>A Head Full of Wishes survey results : <?php echo $year; ?></h1>
+                <h1>A Head Full of Wishes / Survey results <?php echo $year; ?></h1>
                 <div id="survey_results_menu" class="clearfix">
                     <ul class="tabs">
                         <li><a href="#summary">Summary</a></li>
@@ -60,28 +60,33 @@ $this->load->helper('album_helper');
 
                     <div id="summary">
                         <h2>Summary</h2>
-                        <h3>Responses</h3>
                         <div>
-                            <?php
-                            echo $survey_summary['responses'];
-                            ?>
-                            <h3>Ages</h3>
-                            <?php
-                            echo '<table>';
-                            foreach ($survey_summary['ages'] as $age) {
-                                echo '<tr><th>' . $age->age_range . '</th><td>' . $age->count . '</td></tr>';
-                            }
-                            echo '</table>';
-                            ?>               
-
-                            <h3>Countries</h3>
-                            <?php
-                            echo '<table>';
-                            foreach ($survey_summary['countries'] as $country) {
-                                echo '<tr><th>' . $country->country . '</th><td>' . $country->count . '</td></tr>';
-                            }
-                            echo '</table>';
-                            ?>    
+                            <div class='summary_section'>
+                                <h3>Responses</h3>
+                                <?php
+                                echo $survey_summary['responses'];
+                                ?>
+                            </div>
+                            <div class='summary_section'>
+                                <h3>Ages</h3>
+                                <?php
+                                echo '<table>';
+                                foreach ($survey_summary['ages'] as $age) {
+                                    echo '<tr><th>' . $age->age_range . '</th><td>' . $age->count . '</td></tr>';
+                                }
+                                echo '</table>';
+                                ?>               
+                            </div>
+                            <div class='summary_section'>
+                                <h3>Countries</h3>
+                                <?php
+                                echo '<table>';
+                                foreach ($survey_summary['countries'] as $country) {
+                                    echo '<tr><th>' . $country->country . '</th><td>' . $country->count . '</td></tr>';
+                                }
+                                echo '</table>';
+                                ?>    
+                            </div>
                         </div>
                     </div>
 
@@ -92,18 +97,18 @@ $this->load->helper('album_helper');
                         <div id="<?php echo $key; ?>">
                             <h2><?php echo $artist[$key]['artist_details']->display; ?></h2>
                             <div>
-                                <h3>Album</h3>
+                                <h3>Favourite album</h3>
                                 <?php
 //                    $this->firephp->log($artist_results);
                                 foreach ($artist[$key]['artist_results']['albums'] as $result) {
                                     ?>
                                     <div class="surveyalbumbox clearfix">
                                         <div class="surveyalbumdetails">
-                                            <h3><?php echo $result->album; ?></h3>
-                                            <p><?php echo $result->votes; ?> votes</p>
+                                            <p class="album_title"><?php echo $result->album; ?></p>
                                             <div class="surveyalbumimage">
                                                 <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
                                             </div>
+                                            <p><span class="votes"><?php echo $result->votes; ?></span> vote<?php echo ($result->votes > 1) ? 's' : ''; ?></p>
                                         </div>
                                     </div>
 
@@ -112,27 +117,34 @@ $this->load->helper('album_helper');
                                 ?>    
 
 
-                                <h3>Track</h3>
-                                <ol>
+                                <h3>Favourite track</h3>
+                                <ul>
                                     <?php
+                                    $i = TRUE;
                                     foreach ($artist[$key]['artist_results']['tracks'] as $track) {
                                         ?>
-                                        <li><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+
+                                        <li
+                                        <?php
+                                        if ($i) {
+                                            echo ' class="first"';
+                                            $i = FALSE;
+                                        }
+                                        ?>
+
+
+                                            ><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
 
                                         <?php
                                     }
                                     ?>  
-                                </ol>
+                                </ul>
                             </div>
                         </div>
                         <?php
                     }
                     ?>
                 </div>
-            </div>
-        </div>
-    </body>
-</html>
 
 
 
