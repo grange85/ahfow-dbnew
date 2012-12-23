@@ -133,7 +133,7 @@ $this->load->helper('album_helper');
                                         ?>
 
 
-                                            ><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes . ' votes)'; ?></li>
+                                            ><?php echo '<strong>' . $track->track . '</strong> (' . $track->votes; ?> vote<?php echo ($track->votes > 1) ? 's' : ''; ?>)</li>
 
                                         <?php
                                     }
