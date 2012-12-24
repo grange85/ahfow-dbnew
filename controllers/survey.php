@@ -62,11 +62,9 @@ class Survey extends MY_Controller {
             $i++;
         }
         $data['ages'] = $this->ahfow_database->get_survey_ages();
-//        $this->firephp->log($data['ages']);
         $data['section'] = 'survey';
         $data['page_title'] = 'survey form';
         $data['message_code'] = FALSE;
-        $this->firephp->log(uniqid('ahfow2012'));
         $this->load->view('survey', $data);
 //            $this->load->view('wrapper/sidebar', $data);
     }
@@ -100,13 +98,23 @@ class Survey extends MY_Controller {
         $this->load->view('survey_closed', $data);
     }
 
+    public function noresults() {
+        $data['message'] = 'Survey closed';
+        $data['section'] = 'survey';
+        $data['page_title'] = 'survey closed';
+        $this->load->view('survey_closed', $data);
+    }
+
     public function view() {
         $args = func_get_args();
         $artists = array('galaxie_500' => 1, 'luna' => 2, 'damon_and_naomi' => 3, 'dean_and_britta' => 7);
         if (!is_numeric($args[0])) {
             redirect('survey/view/' . SURVEY_CURRENT);
         }
-        $args[0] = (is_numeric($args[0])) ? $args[0] : 2012;
+        $args[0] = (is_numeric($args[0])) ? $args[0] : SURVEY_CURRENT;
+//        if ($args[0] < 2003 || $args[0] == 2011) {
+//            redirect('survey/noresults');
+//        }
         $data['page_title'] = 'Survey results ' . $args[0];
         $data['survey_summary'] = $this->ahfow_database->get_survey_summary($args[0]);
 
@@ -114,7 +122,6 @@ class Survey extends MY_Controller {
         $data['year'] = $args[0];
 
         foreach ($artists as $key => $value) {
-//                $this->firephp->log($key . ' ' . $value);
             $data['artist'][$key]['artist'] = $key;
             $data['artist'][$key]['artist_id'] = $value;
             $data['artist'][$key]['artist_details'] = $this->ahfow_database->get_artist_details($value);
@@ -122,7 +129,6 @@ class Survey extends MY_Controller {
         }
 
 
-        $this->firephp->log($data);
         $this->load->view('surveyresults', $data);
         $this->load->view('wrapper/footer');
     }
