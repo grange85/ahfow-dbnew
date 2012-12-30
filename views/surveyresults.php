@@ -185,9 +185,8 @@ $this->load->helper('album_helper');
                 <div id="survey_results_years" class="clearfix">
 
                     <ul>
-                        <li><a href="<?php echo site_url('survey/view/1995'); ?>">1995 - 2002</a></li>
                         <?php
-                        for ($i = 2003; $i <= SURVEY_CURRENT; $i++) {
+                        for ($i = SURVEY_CURRENT; $i >= 2003; $i--) {
                             ?>
                             <li>
                                 <a <?php echo ($i == $year) ? ' class="active"' : ''; ?> href="<?php echo site_url('survey/view/' . $i); ?>"><?php echo $i; ?></a>
@@ -195,6 +194,7 @@ $this->load->helper('album_helper');
                             <?php
                         }
                         ?>
+                        <li><a href="<?php echo site_url('survey/view/1995'); ?>">1995 - 2002</a></li>
 
                     </ul>
 
