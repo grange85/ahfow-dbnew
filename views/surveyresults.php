@@ -167,8 +167,8 @@ $this->load->helper('album_helper');
                                 } else {
                                     ?>
                                     <p>In 2011 the survey was carried out using third party survey software.</p>
-                                    <p>You can see all the results from 2010 over here:</p>
-                                    <p><a href="http://www.fullofwishes.co.uk/survey-results-2011/">A Head Full of Wishes survey results - 2010</a></p>
+                                    <p>You can see all the results from 2011 over here:</p>
+                                    <p><a href="http://www.fullofwishes.co.uk/survey-results-2011/">A Head Full of Wishes survey results - 2011</a></p>
                                     <?php
                                 }
                                 ?>
