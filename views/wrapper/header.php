@@ -10,11 +10,13 @@
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/survey.css" type="text/css" />
+        <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/jquery.bxslider.css" type="text/css" />
 
 
         <script src="<?php echo STATIC_HOST; ?>/js/<?php echo JQUERY_LIBRARY; ?>" type="text/javascript"></script>
         <script src="<?php echo STATIC_HOST; ?>/js/jquery.cookie.js" type="text/javascript"></script>
         <script src="<?php echo STATIC_HOST; ?>/js/ahfowdb-core.js" type="text/javascript"></script>
+        <script src="<?php echo STATIC_HOST; ?>/js/jquery.bxslider.min.js" type="text/javascript"></script>
         <script src="<?php echo STATIC_HOST; ?>/js/tiny_mce/tiny_mce.js" type="text/javascript"></script>
         <script type="text/javascript">
 

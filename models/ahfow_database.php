@@ -241,6 +241,25 @@ class Ahfow_database extends MY_Model {
         return $return;
     }
 
+    function get_show_images($show_id) {
+        $sql = "select
+                    picture_id,
+                    filename,
+                    photographer,
+                    source,
+                    caption,
+                    type
+                from pictures
+                where
+                    link_id = $show_id and linktype_id = 1";
+
+        $this->firephp->log($sql);
+        $query = $this->db->query($sql);
+        $rows = $query->result();
+        $this->firephp->log($rows);
+        return $rows;
+    }
+
     function get_track_details($track_id) {
         $sql = "select 
                     track_id, 

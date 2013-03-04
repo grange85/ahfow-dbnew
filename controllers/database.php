@@ -171,6 +171,7 @@ class Database extends MY_Controller {
         } else if (count($args) > 2 && $args[1] === 'show') {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
+            $data['showimages'] =  $this->ahfow_database->get_show_images($args[2]);
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['show']['show_details']->date . ' - ' . $data['show']['show_details']->venue;
         } else {
             show_404();
