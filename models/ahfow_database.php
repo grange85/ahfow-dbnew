@@ -172,6 +172,7 @@ class Ahfow_database extends MY_Model {
                     shows.show_id, 
                     venue, 
                     shows.notes, 
+                    (select count(*) from pictures where link_id = show_id and linktype_id = 1) as pictures,
                     (select count(*) from setlists where shows.show_id = show_id) as setlists, 
                     slug,
                     radio';
@@ -224,7 +225,7 @@ class Ahfow_database extends MY_Model {
                     cancelled, 
                     lastfm, 
                     confirmed, 
-                    venue, 
+                    venue,
                     YEAR(date) as year 
                 from 
                     shows 
