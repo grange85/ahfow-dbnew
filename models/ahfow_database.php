@@ -172,8 +172,8 @@ class Ahfow_database extends MY_Model {
                     shows.show_id, 
                     venue, 
                     shows.notes, 
-                    (select count(*) from pictures where link_id = show_id and linktype_id = 1) as pictures,
-                    (select count(*) from setlists where shows.show_id = show_id) as setlists, 
+                    (select count(*) from pictures where link_id = shows.show_id and linktype_id = 1) as pictures,
+                    (select count(*) from setlists where show_id = shows.show_id) as setlists, 
                     slug,
                     radio';
         if ($track_id)
