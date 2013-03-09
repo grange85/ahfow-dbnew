@@ -1,4 +1,6 @@
 
+<?php $this->load->helper('richtext_helper');?>
+
 <div id="content_left">
     <h2><?php echo htmlentities($artist_details->display) . ' - ' . htmlentities($disc['details']->album); ?></h2>
 
@@ -16,7 +18,6 @@
 
         <div class="imagebox_right">
             <?php echo img($image_props); ?>
-            <p><?php echo htmlentities($disc['details']->album) . ' - ' . htmlentities($disc['details']->artist); ?></p>
         </div>
         <?php
     }
@@ -24,7 +25,7 @@
 
 
         <p><em><?php echo htmlentities($disc['details']->format) . ' - ' . htmlentities($disc['details']->label) . ' (' . $disc['details']->release_date . ')'; ?></em></p>
-        <p><?php echo $this->typography->auto_typography($disc['details']->notes); ?></p>
+        <?php echo '<div class="richtext">' . process_text($this->typography->auto_typography($disc['details']->notes),TRUE,TRUE) . '</div>'; ?>
     </div>
     <h4">Tracks</h4>
     <div>
