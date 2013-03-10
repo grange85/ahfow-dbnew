@@ -55,9 +55,14 @@ class Database extends MY_Controller {
 
     public function discography() {
         $args = func_get_args();
+        $this->firephp->log($args);
         $data = array();
         if (count($args) < 1) {
             show_404();
+        } elseif (is_numeric($args[0])) {
+            $data = $this->ahfow_database->get_disc($args[0]);
+            $this->firephp->log($data);
+            redirect('database/discography/' . $data['details']->slug . '/' . $args[0]);
         } else {
             $data['section'] = 'discography';
             $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);

@@ -13,7 +13,7 @@
             foreach ($release['volume']->releases as $item) :
                 $this->firephp->log($item);
                 ?>
-                <li><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug . '/' . $item->album_id); ?>"><?php echo htmlentities($item->album); ?> (<?php echo $item->label . ' ' . $item->release_date; ?>)</a>
+                <li><p><a href="<?php echo site_url('database/discography/' . $artist_details->slug . '/' . $item->album_id); ?>"><?php echo htmlentities($item->album); ?> (<?php echo $item->label . ' - ' . $item->release_date; ?>)</a>
                     <?php
                     if ($item->type !== $type) echo ': <em>' . strtolower($item->type) . '</em>';?>
                     
