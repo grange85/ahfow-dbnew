@@ -7,17 +7,19 @@
     <div class="clearfix">
     <?php
     if ($disc['details']->sleeve) {
+        $thumb = substr($disc['details']->sleeve, 0, strrpos($disc['details']->sleeve, '.')) . '_tn' . substr($disc['details']->sleeve, strrpos($disc['details']->sleeve, '.'));
+$this->firephp->log($thumb);
         $image_props = array(
-            'src' => MEDIA_HOST . '/sleeves/' . $disc['details']->sleeve,
-            'alt' => htmlentities($disc['details']->album) . 'sleeve',
+            'src' => MEDIA_HOST . '/sleeves/t/' . $thumb,
+            'alt' => htmlentities($disc['details']->album) . ' sleeve',
             'width' => '200',
             'height' => '200',
-            'title' => htmlentities($disc['details']->album) . 'sleeve'
+            'title' => htmlentities($disc['details']->album) . ' sleeve'
         );
         ?>
 
         <div class="imagebox_right">
-            <?php echo img($image_props); ?>
+            <?php echo '<a href="' . MEDIA_HOST . '/sleeves/' . $disc['details']->sleeve . '" rel="prettyPhoto[gallery_' . $disc['details']->album_id . ']">' . img($image_props) . '</a>'; ?>
         </div>
         <?php
     }
@@ -27,7 +29,7 @@
         <p><em><?php echo htmlentities($disc['details']->format) . ' - ' . htmlentities($disc['details']->label) . ' (' . $disc['details']->release_date . ')'; ?></em></p>
         <?php echo '<div class="richtext">' . process_text($this->typography->auto_typography($disc['details']->notes),TRUE,TRUE) . '</div>'; ?>
     </div>
-    <h4">Tracks</h4>
+    <h4>Tracks</h4>
     <div>
         <table class="discography">
             <tr><th>Name</th><th>Author</th><th>Notes</th></tr>
