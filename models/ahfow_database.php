@@ -226,6 +226,7 @@ class Ahfow_database extends MY_Model {
                     lastfm, 
                     confirmed, 
                     venue,
+                    slug,
                     YEAR(date) as year 
                 from 
                     shows 

@@ -37,8 +37,7 @@ class Database extends MY_Controller {
         $this->load->view('wrapper/footer');
     }
 
-    
-        public function search() {
+    public function search() {
         $data = array();
         $data['section'] = 'search';
         $data['artist_list'] = $this->ahfow_database->get_artists();
@@ -53,8 +52,7 @@ class Database extends MY_Controller {
         $this->load->view('wrapper/sidebar', $data);
         $this->load->view('wrapper/footer');
     }
-    
-    
+
     public function discography() {
         $args = func_get_args();
         $data = array();
@@ -125,7 +123,11 @@ class Database extends MY_Controller {
         if (count($args) === 0) {
             show_404();
         }
-
+        if ($args[0] === 'show') {
+            $data = $this->ahfow_database->get_show_details($args[1]);
+            $this->firephp->log($data);
+            redirect('database/gigography/' . $data['show_details']->slug . '/show/' . $args[1]);
+        }
         $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
         if (count($args) === 1 || (count($args) > 1 && $args[1] !== 'show')) {
 
@@ -163,7 +165,7 @@ class Database extends MY_Controller {
             }
             $selected_view = 'gigography';
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['year'];
-            
+
             if ($data['year'] === 'upcoming') {
                 $data['show_list'] = $this->ahfow_database->get_shows_list($data['artist_details']->artist_id, null, null, TRUE);
             } else {
@@ -172,7 +174,7 @@ class Database extends MY_Controller {
         } else if (count($args) > 2 && $args[1] === 'show') {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
-            $data['showimages'] =  $this->ahfow_database->get_show_images($args[2]);
+            $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
 //            $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['show']['show_details']->date . ' - ' . $data['show']['show_details']->venue;
         } else {
