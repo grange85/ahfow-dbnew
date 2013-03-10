@@ -35,7 +35,37 @@ class Ahfow_database extends MY_Model {
         }
     }
 
-    function get_discography($artist_id, $survey = NULL) {
+    
+    function get_releases($artist_id) {
+
+        $sql = 'select 
+                    volume_id, 
+                    album, 
+                    artist_id, 
+                    first_release_year as release_date, 
+                    album_types.type 
+                from 
+                    release_group inner join album_types on album_types.type_id = release_group.type 
+                where 
+                    artist_id = ' . $artist_id . ' ';
+        $sql .= ' order by 
+                    release_group.type ASC, 
+                    release_date ASC';
+        $query = $this->db->query($sql);
+        $i = 0;
+        foreach ($query->result() as $item) {
+            
+            $output[$item->type][$i]['volume'] = $item;
+            $output[$item->type][$i]['volume']->releases = $this->get_discography($artist_id, NULL, $item->volume_id);
+            $i++;
+        }
+//        $this->firephp->log($output);
+        return $output;
+    }
+    
+    
+    
+    function get_discography($artist_id, $survey = NULL, $volume_id = NULL) {
 
         $sql = 'select 
                     album_id, 
@@ -55,13 +85,21 @@ class Ahfow_database extends MY_Model {
             $sql .= ' and album_id in (' . implode(',', $survey) . ') ';
         }
 
+        if ($volume_id !== NULL) {
+            $sql .= ' and volume_id  = ' . $volume_id . ' ';
+        }
+
         $sql .= 'order by 
-                    albums.type ASC, 
                     release_date ASC';
         $query = $this->db->query($sql);
 
         foreach ($query->result() as $item) {
-            $output[$item->type][] = $item;
+            if ($volume_id !== NULL) {
+                $output[] = $item;
+            } else {
+                $output[$item->type][] = $item;
+                
+            }
         }
         return $output;
     }

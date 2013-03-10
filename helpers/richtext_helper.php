@@ -13,7 +13,7 @@
 function process_text($text) {
     //replace astersiked rows as unordered lists
     $return = preg_replace("/_([^_]*)_/",'<em>$1</em>',$text);
-    $return = preg_replace("/\[ahfow:show_id=([0-9]+)\]/",'<a href="/index.php/database/gigography/show/$1">show details</a>', $return);
+    $return = preg_replace("/\[ahfow:show_id=([0-9]+)\]/",'<a href="'. site_url('/database/gigography/show/$1/test') . '">show details</a>', $return);
     $return = preg_replace("/(\<\/ul\>\n(.*)\<ul\>*)+/","",preg_replace("/\*+(.*)?/i","<ul><li>$1</li></ul>",$return));
     $return = preg_replace("/\[([^|]*)\|([^\]]*)]/", "<a href=\"$2\">$1</a>", $return);
     

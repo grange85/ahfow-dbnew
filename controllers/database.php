@@ -66,6 +66,7 @@ class Database extends MY_Controller {
             }
             if (count($args) === 1) {
                 $selected_view = 'discography';
+                $data['releases'] = $this->ahfow_database->get_releases($data['artist_details']->artist_id);
                 $data['discography'] = $this->ahfow_database->get_discography($data['artist_details']->artist_id);
                 $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist;
             } else {
