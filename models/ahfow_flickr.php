@@ -20,6 +20,30 @@ class Ahfow_flickr extends MY_Model {
         $this->phpflickr->enableCache('fs', APPPATH . 'cache/', 14400);
     }
 
+    function get_tagged_list($type = 'show') {
+        $per_page = 500;
+        $more = TRUE;
+        $page = 1;
+        $arr_return = array();
+        $arr_results = array();
+        while ($more) {
+            $results = $this->phpflickr->machinetags_getValues('ahfow', $type . 'id', $per_page, $page);
+            $arr_results = array_merge($arr_results, $results['values']['value']);
+            $this->firephp->log(count($results['values']['value']));
+            if (count($results['values']['value']) !== $per_page) {
+                $more = FALSE;
+            } else {
+                $page++;
+            }
+        }
+        foreach ($arr_results as $value) {
+
+            $this->firephp->log($value);
+            array_push($arr_return, $value['_content']);
+        }
+        return $arr_return;
+    }
+
     function get_photos($type, $id) {
 
         switch ($type) {
@@ -34,15 +58,15 @@ class Ahfow_flickr extends MY_Model {
         }
         $args = array('tags' => $tag, 'tag_mode' => 'any');
         $results = $this->phpflickr->photos_search($args);
-        $this->firephp->log($results);
-        $this->firephp->log($args);
+//        $this->firephp->log($results);
+//        $this->firephp->log($args);
 
         if ($results['total'] > 0) {
             $i = 0;
             foreach ($results['photo'] as $photo) {
                 $photos_info = $this->phpflickr->photos_getInfo($photo['id']);
                 $photos_sizes = $this->phpflickr->photos_getSizes($photo['id']);
-                $this->firephp->log($photos_sizes);
+//                $this->firephp->log($photos_sizes);
                 $return[$i]['url'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'medium');
                 $return[$i]['thumb'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'largesquare');
                 $return[$i]['link'] = 'http://www.flickr.com/photos/' . $photos_info['photo']['owner']['nsid'] . '/' . $photos_info['photo']['id'];

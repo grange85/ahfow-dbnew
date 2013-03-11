@@ -169,6 +169,7 @@ class Database extends MY_Controller {
                 }
                 redirect('database/gigography/' . $data['artist_details']->slug . '/' . $data['year'], 'location');
             }
+            $data['tagged_list'] = $this->ahfow_flickr->get_tagged_list('show');
             $selected_view = 'gigography';
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['year'];
 

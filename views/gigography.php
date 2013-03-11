@@ -10,6 +10,7 @@
 
 
 /* End of file gigography.php */
+                $this->firephp->log($tagged_list);
 ?>
 <div id="content_left">
     <?php if (isset($artist_details)): ?>
@@ -25,14 +26,15 @@
         <col width="5%"/>
        
         <tr><th>Date</th><th>Artist</th><th>Venue</th><th>Setlist</th><th>Pictures</th></tr>
-            <?php foreach ($show_list['list'] as $show): ?>
+            <?php foreach ($show_list['list'] as $show): 
+                ?>
 
                 <tr>
                     <td><a href="<?php echo site_url('/database/gigography/' . $show->slug . '/show/' . $show->show_id); ?>"><?php echo date('jS F Y', strtotime($show->date)) ?></a></td>
                     <td><?php echo $show->artist;?></td>
                     <td><?php echo $show->venue;?></td>
                     <td><?php echo ($show->setlists > 0)?'yes': '';?></td>
-                    <td><?php echo ($show->pictures > 0)?'yes': '';?></td>
+                    <td><?php echo ($show->pictures > 0 | in_array($show->show_id, $tagged_list, FALSE)) ?'yes': '';?></td>
 
                 </tr>   
             <?php endforeach; ?>

@@ -21,6 +21,7 @@
                 <?php endforeach; ?>
         </table>
     <?php endif; ?>
+    <h3>Pictures</h3>
     <?php
     echo '<ul id="showpics">';
     if (count($showimages) > 0) {
@@ -37,13 +38,12 @@
             $this->firephp->log($thumb);
             echo '<li><a href="http://media.fullofwishes.co.uk/images/pictures-wishes/' . $showimage->filename . '" title="' . $showimage->caption . ' by ' . $showimage->photographer . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="http://media.fullofwishes.co.uk/images/pictures-wishes/t/' . $thumb . '" width="150" height="150" alt="' . $showimage->caption . '" /></a></li>';
         }
-
-
-        if ($flickrimages) {
-
-            foreach ($flickrimages as $image) {
-                echo '<li><a href="' . $image['url'] . '" title="' . $image['caption'] . '<a target=\'_blank\' href=\'' . $image['link'] . '\'> view on flickr</a>" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . $image['thumb'] . '" width="150" height="150" alt="' . $image['caption'] . '" /></a></li>';
-            }
+    }
+    if ($flickrimages) {
+//        echo '<h4><a href="http://www.flickr.com/search/?q=ahfow%3Ashowid%3D' . $show['show_details']->show_id . '684&ss=2&m=tags">Pictures on flickr</a></h4><ul>';
+        foreach ($flickrimages as $image) {
+//            echo '<li><a href="' . $image['url'] . '" title="' . $image['caption'] . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . $image['thumb'] . '" width="150" height="150" alt="' . $image['caption'] . '" /></a></li>';
+            echo '<li><a href="' . $image['url'] . '" title="' . $image['caption'] . ' <a target=\'_blank\' href=\'' . $image['link'] . '\'>on flickr</a>" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . $image['thumb'] . '" width="150" height="150" alt="' . $image['caption'] . '" /></a></li>';
         }
     }
     echo '</ul>';
