@@ -181,8 +181,8 @@ class Database extends MY_Controller {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
             $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
-//            $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
-            $data['flickrimages'] = NULL;
+            $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
+//            $data['flickrimages'] = NULL;
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['show']['show_details']->date . ' - ' . $data['show']['show_details']->venue;
         } else {
             show_404();
