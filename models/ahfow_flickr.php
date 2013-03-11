@@ -16,7 +16,7 @@ class Ahfow_flickr extends MY_Model {
         // Call the Model constructor
         parent::__construct();
         $params = array('api_key' => FLICKR_API_KEY, 'secret' => FLICKR_API_SECRET, 'die_on_error' => FALSE);
-        $this->load->library('phpflickr', $params);
+        $this->load->library('phpFlickr', $params);
         $this->phpflickr->enableCache('fs', APPPATH . 'cache/', 14400);
     }
 
