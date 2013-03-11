@@ -8,7 +8,7 @@ class Database extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ahfow_database');
-        $this->load->model('ahfow_flickr');
+//        $this->load->model('ahfow_flickr');
         if ($this->session->userdata('logged_in')) {
             $this->username = $this->session->userdata('username');
         } else {
