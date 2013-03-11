@@ -36,21 +36,21 @@ class Ahfow_flickr extends MY_Model {
         $results = $this->phpflickr->photos_search($args);
         $this->firephp->log($results);
         $this->firephp->log($args);
-        
+
         if ($results['total'] > 0) {
             $i = 0;
-            foreach($results['photo'] as $photo) {
+            foreach ($results['photo'] as $photo) {
                 $photos_info = $this->phpflickr->photos_getInfo($photo['id']);
-                $return[$i]['url'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'large');
+                $photos_sizes = $this->phpflickr->photos_getSizes($photo['id']);
+                $this->firephp->log($photos_sizes);
+                $return[$i]['url'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'medium');
                 $return[$i]['thumb'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'largesquare');
                 $return[$i]['link'] = 'http://www.flickr.com/photos/' . $photos_info['photo']['owner']['nsid'] . '/' . $photos_info['photo']['id'];
                 $return[$i]['caption'] = $photos_info['photo']['title'] . ' by ' . $photos_info['photo']['owner']['username'];
-                $this->firephp->log($photos_info);
                 $i++;
             }
             return $return;
         }
-        
     }
 
 }
