@@ -35,7 +35,6 @@ class Ahfow_database extends MY_Model {
         }
     }
 
-    
     function get_releases($artist_id) {
 
         $sql = 'select 
@@ -54,7 +53,7 @@ class Ahfow_database extends MY_Model {
         $query = $this->db->query($sql);
         $i = 0;
         foreach ($query->result() as $item) {
-            
+
             $output[$item->type][$i]['volume'] = $item;
             $output[$item->type][$i]['volume']->releases = $this->get_discography($artist_id, NULL, $item->volume_id);
             $i++;
@@ -62,9 +61,7 @@ class Ahfow_database extends MY_Model {
 //        $this->firephp->log($output);
         return $output;
     }
-    
-    
-    
+
     function get_discography($artist_id, $survey = NULL, $volume_id = NULL) {
 
         $sql = 'select 
@@ -98,7 +95,6 @@ class Ahfow_database extends MY_Model {
                 $output[] = $item;
             } else {
                 $output[$item->type][] = $item;
-                
             }
         }
         return $output;
@@ -221,7 +217,6 @@ class Ahfow_database extends MY_Model {
         if ($track_id)
             $sql .= 'inner join setlists on setlists.show_id = shows.show_id ';
         $sql .= 'where cancelled <> 1 ';
-
         if ($track_id)
             $sql .= 'and (track_id = ' . $track_id . ')';
         else {
@@ -273,6 +268,9 @@ class Ahfow_database extends MY_Model {
                     show_id = $show_id";
         $query = $this->db->query($sql);
         $rows = $query->result();
+        if (!isset($rows[0]))
+            return FALSE;
+
         $return['show_details'] = $rows[0];
 
         $sql = "select setlists.track_id, track, setlists.notes, tracks.author, position from tracks inner join setlists on setlists.track_id = tracks.track_id where show_id = $show_id order by position";

@@ -129,9 +129,11 @@ class Database extends MY_Controller {
         if (count($args) === 0) {
             show_404();
         }
-        if ($args[0] === 'show') {
+        if ($args[0] === 'show' && is_numeric($args[1])) {
             $data = $this->ahfow_database->get_show_details($args[1]);
-            $this->firephp->log($data);
+            if (!isset($data['show_details'])) {
+                show_404();
+            }
             redirect('database/gigography/' . $data['show_details']->slug . '/show/' . $args[1]);
         }
         $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
@@ -181,7 +183,7 @@ class Database extends MY_Controller {
         } else if (count($args) > 2 && $args[1] === 'show') {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
-            if ($data['show']['show_details']->slug !== $data['artist_details']->slug){
+            if ($data['show']['show_details']->slug !== $data['artist_details']->slug) {
                 redirect('database/gigography/' . $data['show_details']->slug . '/show/' . $args[2]);
             }
             $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
