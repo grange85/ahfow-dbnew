@@ -181,6 +181,9 @@ class Database extends MY_Controller {
         } else if (count($args) > 2 && $args[1] === 'show') {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
+            if ($data['show']['show_details']->slug !== $data['artist_details']->slug){
+                redirect('database/gigography/' . $data['show_details']->slug . '/show/' . $args[2]);
+            }
             $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
             $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
 //            $data['flickrimages'] = NULL;
