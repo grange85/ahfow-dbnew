@@ -17,6 +17,7 @@ class Ahfow_flickr extends MY_Model {
         parent::__construct();
         $params = array('api_key' => FLICKR_API_KEY, 'secret' => FLICKR_API_SECRET, 'die_on_error' => FALSE);
         $this->load->library('phpflickr', $params);
+        $this->phpflickr->enableCache('fs', APPPATH . 'cache/', 14400);
     }
 
     function get_photos($type, $id) {
@@ -40,12 +41,14 @@ class Ahfow_flickr extends MY_Model {
             $i = 0;
             foreach($results['photo'] as $photo) {
                 $photos_info = $this->phpflickr->photos_getInfo($photo['id']);
-                $return[$i]['url'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'medium');
-                $return[$i]['caption'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'medium');
-//                $this->firephp->log($photos_url);
-//                $this->firephp->log($photos_info['photo']['id']);
+                $return[$i]['url'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'large');
+                $return[$i]['thumb'] = $this->phpflickr->buildPhotoUrl($photos_info['photo'], 'largesquare');
+                $return[$i]['link'] = 'http://www.flickr.com/photos/' . $photos_info['photo']['owner']['nsid'] . '/' . $photos_info['photo']['id'];
+                $return[$i]['caption'] = $photos_info['photo']['title'] . ' by ' . $photos_info['photo']['owner']['username'];
                 $this->firephp->log($photos_info);
+                $i++;
             }
+            return $return;
         }
         
     }
