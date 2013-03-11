@@ -8,7 +8,7 @@ class Database extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ahfow_database');
-        $this->load->model('ahfow_flickr');
+//        $this->load->model('ahfow_flickr');
         if ($this->session->userdata('logged_in')) {
             $this->username = $this->session->userdata('username');
         } else {
@@ -181,7 +181,8 @@ class Database extends MY_Controller {
             $selected_view = 'show';
             $data['show'] = $this->ahfow_database->get_show_details($args[2]);
             $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
-            $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
+//            $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
+            $data['flickrimages'] = NULL;
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['show']['show_details']->date . ' - ' . $data['show']['show_details']->venue;
         } else {
             show_404();
