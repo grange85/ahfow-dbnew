@@ -22,6 +22,7 @@
         </table>
     <?php endif; ?>
     <h3>Pictures</h3>
+    <p>If you have pictures from this show <strong>on flickr</strong> and would like to add them to this page please use the tag: <form><input onclick="this.select();" type="text" readonly="readonly" value="ahfow:showid=<?php echo $show['show_details']->show_id;?>"/><em></form></p>
     <?php
     echo '<ul id="showpics">';
     if (count($showimages) > 0) {
