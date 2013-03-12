@@ -17,8 +17,9 @@ class Ahfow_flickr extends MY_Model {
         parent::__construct();
         $params = array('api_key' => FLICKR_API_KEY, 'secret' => FLICKR_API_SECRET, 'die_on_error' => FALSE);
         $this->load->library('phpflickr', $params);
+        $CI = & get_instance();
         $path = $CI->config->item('cache_path');
-	$cache_path = ($path == '') ? APPPATH.'cache/' : $path;
+        $cache_path = ($path == '') ? APPPATH . 'cache/' : $path;
         $this->phpflickr->enableCache('fs', $cache_path, 14400);
     }
 
