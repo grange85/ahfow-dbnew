@@ -18,6 +18,11 @@
 | Please see the user guide for complete details:
 |
 |	http://codeigniter.com/user_guide/general/routing.html
+*/
+
+$route['gigography/show/([0-9]+)'] = 'database/gigography/show/$1';
+
+/*
 |
 | -------------------------------------------------------------------------
 | RESERVED ROUTES
