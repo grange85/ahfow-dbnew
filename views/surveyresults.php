@@ -111,7 +111,7 @@ $this->load->helper('album_helper');
                                             <div class="surveyalbumdetails">
                                                 <p class="album_title"><?php echo $result->album; ?></p>
                                                 <div class="surveyalbumimage">
-                                                    <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>"/>
+                                                    <img src ="http://media.fullofwishes.co.uk/sleeves/<?php echo $result->sleeve; ?>" width="200" height="200"/>
                                                 </div>
                                                 <p><span class="votes"><?php echo $result->votes; ?></span> vote<?php echo ($result->votes > 1) ? 's' : ''; ?></p>
                                             </div>
