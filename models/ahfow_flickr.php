@@ -17,7 +17,7 @@ class Ahfow_flickr extends MY_Model {
         parent::__construct();
         $params = array('api_key' => FLICKR_API_KEY, 'secret' => FLICKR_API_SECRET, 'die_on_error' => FALSE);
         $this->load->library('phpflickr', $params);
-        $this->phpflickr->enableCache('fs', APPPATH . 'cache/', 14400);
+        $this->phpflickr->enableCache('fs', BASEPATH . 'cache/', 14400);
     }
 
     function get_tagged_list($type = 'show') {
