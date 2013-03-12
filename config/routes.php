@@ -22,7 +22,7 @@
 
 $route['gigography/show/([0-9]+)'] = 'database/gigography/show/$1';
 $route['survey/([0-9]{4})'] = 'survey/view/$1';
-$route['survey/([0-9]{4})/(.+)'] = 'survey/view/$1/$2';
+$route['survey/([0-9]{4})/(.+)'] = 'survey/view/$1#$2';
 
 /*
 |
