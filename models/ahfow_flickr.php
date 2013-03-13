@@ -20,7 +20,7 @@ class Ahfow_flickr extends MY_Model {
         $CI = & get_instance();
         $path = $CI->config->item('cache_path');
         $cache_path = ($path == '') ? APPPATH . 'cache/' : $path;
-        $this->phpflickr->enableCache('fs', $cache_path, 14400);
+        $this->phpflickr->enableCache('fs', $cache_path, 7200);
     }
 
     function get_tagged_list($type = 'show') {
