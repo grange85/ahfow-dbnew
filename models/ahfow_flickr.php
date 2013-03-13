@@ -59,7 +59,7 @@ class Ahfow_flickr extends MY_Model {
             default :
                 return FALSE;
         }
-        $args = array('tags' => $tag, 'tag_mode' => 'any');
+        $args = array('tags' => $tag, 'tag_mode' => 'any', 'media' => 'photos');
         $results = $this->phpflickr->photos_search($args);
 //        $this->firephp->log($results);
 //        $this->firephp->log($args);
