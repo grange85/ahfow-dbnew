@@ -10,7 +10,7 @@
             $thumb = substr($disc['details']->sleeve, 0, strrpos($disc['details']->sleeve, '.')) . '_tn' . substr($disc['details']->sleeve, strrpos($disc['details']->sleeve, '.'));
             $this->firephp->log($thumb);
             $image_props = array(
-                'src' => MEDIA_HOST . '/sleeves/t/' . $thumb,
+                'src' => MEDIA_HOST . '/images/sleeves/t/' . $thumb,
                 'alt' => htmlentities($disc['details']->album) . ' sleeve',
                 'width' => '200',
                 'height' => '200',
