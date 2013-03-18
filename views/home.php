@@ -11,7 +11,7 @@
     <?php
     if ($artist->image) {
         $image_props = array(
-            'src' => MEDIA_HOST . '/sleeves/' . $artist->image,
+            'src' => MEDIA_HOST . '/images/misc/' . $artist->image,
             'alt' => htmlentities($artist->display),
             'width' => '200',
             'height' => '200',
