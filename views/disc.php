@@ -19,7 +19,7 @@
             ?>
 
             <div class="imagebox_right">
-                <?php echo '<a href="' . MEDIA_HOST . '/sleeves/' . $disc['details']->sleeve . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']">' . img($image_props) . '</a>'; ?>
+                <?php echo '<a href="' . MEDIA_HOST . '/images/sleeves/' . $disc['details']->sleeve . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']">' . img($image_props) . '</a>'; ?>
             </div>
             <?php
         }
