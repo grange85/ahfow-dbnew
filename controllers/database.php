@@ -78,6 +78,8 @@ class Database extends MY_Controller {
                 $selected_view = 'disc';
                 $data['disc'] = $this->ahfow_database->get_disc($args[1]);
                 $data['page_title'] = ucfirst($data['section']) . ': ' . $data['disc']['details']->artist . ' - ' . $data['disc']['details']->album;
+                $data['images'] = $this->ahfow_database->get_item_images($data['disc']['details']->volume_id, 3);
+
                 if (!$data['disc']) {
                     show_404();
                 }
@@ -186,7 +188,7 @@ class Database extends MY_Controller {
             if ($data['show']['show_details']->slug !== $data['artist_details']->slug) {
                 redirect('database/gigography/' . $data['show_details']->slug . '/show/' . $args[2]);
             }
-            $data['showimages'] = $this->ahfow_database->get_show_images($args[2]);
+            $data['showimages'] = $this->ahfow_database->get_item_images($args[2], 1);
             $data['flickrimages'] = $this->ahfow_flickr->get_photos('show', $args[2]);
 //            $data['flickrimages'] = NULL;
             $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist . ': ' . $data['show']['show_details']->date . ' - ' . $data['show']['show_details']->venue;

@@ -37,7 +37,7 @@
 
             $thumb = substr($showimage->filename, 0, strrpos($showimage->filename, '.')) . '_tn' . substr($showimage->filename, strrpos($showimage->filename, '.'));
             $this->firephp->log($thumb);
-            echo '<li><a href="http://media.fullofwishes.co.uk/images/pictures-wishes/' . $showimage->filename . '" title="' . $showimage->caption . ' by ' . $showimage->photographer . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="http://media.fullofwishes.co.uk/images/pictures-wishes/t/' . $thumb . '" width="150" height="150" alt="' . $showimage->caption . '" /></a></li>';
+            echo '<li><a href="'. MEDIA_HOST . '/images/showimages/' . $showimage->filename . '" title="' . $showimage->caption . ' by ' . $showimage->photographer . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . MEDIA_HOST . '/images/showimages/t/' . $thumb . '" width="150" height="150" alt="' . $showimage->caption . '" /></a></li>';
         }
     }
     if ($flickrimages) {

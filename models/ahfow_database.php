@@ -279,7 +279,7 @@ class Ahfow_database extends MY_Model {
         return $return;
     }
 
-    function get_show_images($show_id) {
+    function get_item_images($id, $type) {
         $sql = "select
                     picture_id,
                     filename,
@@ -289,7 +289,7 @@ class Ahfow_database extends MY_Model {
                     type
                 from pictures
                 where
-                    link_id = $show_id and linktype_id = 1";
+                    link_id = $id and linktype_id = $type";
 
         $this->firephp->log($sql);
         $query = $this->db->query($sql);

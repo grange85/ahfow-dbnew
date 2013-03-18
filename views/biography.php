@@ -19,7 +19,7 @@
     <?php
     if ($artist_details->image) {
         $image_props = array(
-            'src' => MEDIA_HOST . '/sleeves/' . $artist_details->image,
+            'src' => MEDIA_HOST . '/images/misc/' . $artist_details->image,
             'alt' => htmlentities($artist_details->display),
             'width' => '200',
             'height' => '200',
