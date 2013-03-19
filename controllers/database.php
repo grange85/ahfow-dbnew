@@ -105,10 +105,12 @@ class Database extends MY_Controller {
         } else {
             $data['section'] = 'biography';
             $data['artist_details'] = $this->ahfow_database->get_artist_details($args[0]);
-            $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist;
+
             if (!$data['artist_details']) {
                 show_404();
             }
+            $data['page_title'] = ucfirst($data['section']) . ': ' . $data['artist_details']->artist;
+            $data['images'] = $this->ahfow_database->get_item_images($data['artist_details']->artist_id, 2);
         }
         if (ENVIRONMENT === 'production') {
             $this->output->cache(DEFAULT_CACHE_LENGTH);

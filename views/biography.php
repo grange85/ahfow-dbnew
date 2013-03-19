@@ -35,9 +35,29 @@
     }
     ?>    
 
-    <div>
+    <div class="clearfix">
         <?php echo htmlspecialchars_decode($artist_details->notes); ?>
     </div>
 
+    <?php
+    echo '<ul id="pics" class="clearfix">';
+    if (count($images) > 0) {
+        foreach ($images as $image) {
+            $caption = '';
+            if ($image->caption !== '') {
+                $caption .= $image->caption . ' ';
+            }
+            if (!empty($image->photographer)) {
+                $caption .= 'by ' . $image->photographer;
+            }
 
+            $thumb = substr($image->filename, 0, strrpos($image->filename, '.')) . '_tn' . substr($image->filename, strrpos($image->filename, '.'));
+            $this->firephp->log($thumb);
+            echo '<li><a href="'. MEDIA_HOST . '/images/misc/' . $image->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery]"><img src="' . MEDIA_HOST . '/images/misc/t/' . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
+        }
+    }
+    echo '</ul>';
+
+    ?>
+    
 </div>

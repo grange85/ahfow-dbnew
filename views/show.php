@@ -24,20 +24,20 @@
     <h3>Pictures</h3>
     <p>If you have pictures from this show <strong>on flickr</strong> and would like to add them to this page please use the tag: <form><input onclick="this.select();" type="text" readonly="readonly" value="ahfow:showid=<?php echo $show['show_details']->show_id;?>"/><em></form></p>
     <?php
-    echo '<ul id="showpics">';
+    echo '<ul id="showpics" class="clearfix">';
     if (count($showimages) > 0) {
         foreach ($showimages as $showimage) {
             $caption = '';
             if ($showimage->caption !== '') {
                 $caption .= $showimage->caption . ' ';
             }
-            if ($showimage->photographer !== '') {
+            if (!empty($showimage->photographer)) {
                 $caption .= 'by ' . $showimage->photographer;
             }
 
             $thumb = substr($showimage->filename, 0, strrpos($showimage->filename, '.')) . '_tn' . substr($showimage->filename, strrpos($showimage->filename, '.'));
             $this->firephp->log($thumb);
-            echo '<li><a href="'. MEDIA_HOST . '/images/showimages/' . $showimage->filename . '" title="' . $showimage->caption . ' by ' . $showimage->photographer . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . MEDIA_HOST . '/images/showimages/t/' . $thumb . '" width="150" height="150" alt="' . $showimage->caption . '" /></a></li>';
+            echo '<li><a href="'. MEDIA_HOST . '/images/showimages/' . $showimage->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . MEDIA_HOST . '/images/showimages/t/' . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
         }
     }
     if ($flickrimages) {
