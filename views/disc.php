@@ -7,19 +7,20 @@
     <div class="clearfix">
         <?php
         if ($disc['details']->sleeve) {
+            $basepath = MEDIA_HOST . '/0' . $artist_details->artist_id . '-' . $artist_details->slug . '/sleeves/';
             $thumb = substr($disc['details']->sleeve, 0, strrpos($disc['details']->sleeve, '.')) . '_tn' . substr($disc['details']->sleeve, strrpos($disc['details']->sleeve, '.'));
             $this->firephp->log($thumb);
             $image_props = array(
-                'src' => MEDIA_HOST . '/images/sleeves/t/' . $thumb,
+                'src' => $basepath . $thumb,
                 'alt' => htmlentities($disc['details']->album) . ' sleeve',
-                'width' => '200',
-                'height' => '200',
+                'width' => '150',
+                'height' => '150',
                 'title' => htmlentities($disc['details']->album) . ' sleeve'
             );
             ?>
 
             <div class="imagebox_right">
-                <?php echo '<a href="' . MEDIA_HOST . '/images/sleeves/' . $disc['details']->sleeve . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']">' . img($image_props) . '</a>'; ?>
+                <?php echo '<a href="' . $basepath . $disc['details']->sleeve . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']">' . img($image_props) . '</a>'; ?>
             </div>
             <?php
         }
@@ -48,6 +49,7 @@
 
     <?php
     if (count($images) > 0) {
+        $basepath = MEDIA_HOST . '/0' . $artist_details->artist_id . '-' . $artist_details->slug . '/sleeves/';
         echo '<ul id="showpics" class="clearfix">';
         foreach ($images as $image) {
             $caption = '';
@@ -57,7 +59,7 @@
 
             $thumb = substr($image->filename, 0, strrpos($image->filename, '.')) . '_tn' . substr($image->filename, strrpos($image->filename, '.'));
             $this->firephp->log($thumb);
-            echo '<li><a href="' . MEDIA_HOST . '/images/sleeves/' . $image->filename . '" title="' . $image->caption . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']"><img src="' . MEDIA_HOST . '/images/sleeves/t/' . $thumb . '" width="150" height="150" alt="' . $image->caption . '" /></a></li>';
+            echo '<li><a href="' . $basepath . $image->filename . '" title="' . $image->caption . '" rel="prettyPhoto[gallery_' . $disc['details']->volume_id . ']"><img src="' . $basepath . $thumb . '" width="150" height="150" alt="' . $image->caption . '" /></a></li>';
         }
         echo '</ul>';
     }

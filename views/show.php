@@ -28,6 +28,7 @@
     if (count($showimages) > 0) {
         foreach ($showimages as $showimage) {
             $caption = '';
+            $basepath = MEDIA_HOST . '/0' . $artist_details->artist_id . '-' . $artist_details->slug . '/show_assets/' . $show['show_details']->date . '/';
             if ($showimage->caption !== '') {
                 $caption .= $showimage->caption . ' ';
             }
@@ -36,8 +37,8 @@
             }
 
             $thumb = substr($showimage->filename, 0, strrpos($showimage->filename, '.')) . '_tn' . substr($showimage->filename, strrpos($showimage->filename, '.'));
-            $this->firephp->log($thumb);
-            echo '<li><a href="'. MEDIA_HOST . '/images/showimages/' . $showimage->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . MEDIA_HOST . '/images/showimages/t/' . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
+            $this->firephp->log($basepath);
+            echo '<li><a href="'. $basepath . $showimage->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery' . $show['show_details']->show_id . ']"><img src="' . $basepath . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
         }
     }
     if ($flickrimages) {
