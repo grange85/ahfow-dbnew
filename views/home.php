@@ -10,8 +10,9 @@
     <div class="artist_box clearfix">
     <?php
     if ($artist->image) {
+        $basepath = MEDIA_HOST . '/0' . $artist->artist_id . '-' . $artist->slug . '/pictures/';
         $image_props = array(
-            'src' => MEDIA_HOST . '/images/misc/' . $artist->image,
+            'src' => $basepath . $artist->image,
             'alt' => htmlentities($artist->display),
             'width' => '200',
             'height' => '200',

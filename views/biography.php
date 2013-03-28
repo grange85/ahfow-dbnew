@@ -17,9 +17,10 @@
     <h2><?php echo htmlentities($artist_details->display) . ': ' . $section; ?></h2>
 
     <?php
+    $basepath = MEDIA_HOST . '/0' . $artist_details->artist_id . '-' . $artist_details->slug . '/';
     if ($artist_details->image) {
         $image_props = array(
-            'src' => MEDIA_HOST . '/images/misc/' . $artist_details->image,
+            'src' => $basepath . 'pictures/' . $artist_details->image,
             'alt' => htmlentities($artist_details->display),
             'width' => '200',
             'height' => '200',
@@ -53,11 +54,10 @@
 
             $thumb = substr($image->filename, 0, strrpos($image->filename, '.')) . '_tn' . substr($image->filename, strrpos($image->filename, '.'));
             $this->firephp->log($thumb);
-            echo '<li><a href="'. MEDIA_HOST . '/images/misc/' . $image->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery]"><img src="' . MEDIA_HOST . '/images/misc/t/' . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
+            echo '<li><a href="' . $basepath . 'pictures/' . $image->filename . '" title="' . $caption . '" rel="prettyPhoto[gallery]"><img src="' . $basepath . 'pictures/' . $thumb . '" width="150" height="150" alt="' . $caption . '" /></a></li>';
         }
     }
     echo '</ul>';
-
     ?>
-    
+
 </div>
