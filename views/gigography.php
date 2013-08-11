@@ -12,6 +12,7 @@
 /* End of file gigography.php */
                 $this->firephp->log($tagged_list);
 ?>
+<?php $this->load->helper('richtext_helper'); ?>
 <div id="content_left">
     <?php if (isset($artist_details)): ?>
         <h2><?php echo htmlentities($artist_details->display); ?> shows from <?php echo $year; ?></h2>

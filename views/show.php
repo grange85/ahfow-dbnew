@@ -1,8 +1,9 @@
 <?php ?>
 
+<?php $this->load->helper('richtext_helper'); ?>
 <div id="content_left">
     <h2><?php echo date('jS F Y', strtotime($show['show_details']->date)) ?>: <?php echo htmlentities($artist_details->display); ?> at <?php echo htmlentities($show['show_details']->venue); ?></h2>
-    <?php echo $this->typography->auto_typography($show['show_details']->notes); ?>
+    <?php echo $this->typography->auto_typography(process_text($show['show_details']->notes)); ?>
 
 
     <?php if (count($showimages) > 0) echo '<p><a href="#showpics">Pictures</a></p>'; ?>

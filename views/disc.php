@@ -28,7 +28,7 @@
 
 
         <p><em><?php echo htmlentities($disc['details']->format) . ' - ' . htmlentities($disc['details']->label) . ' (' . $disc['details']->release_date . ')'; ?></em></p>
-        <?php echo '<div class="richtext">' . $this->typography->auto_typography(process_text($disc['details']->notes), TRUE, TRUE) . '</div>'; ?>
+        <?php echo '<div class="richtext22">' . $this->typography->auto_typography(process_text($disc['details']->notes), TRUE, TRUE) . '</div>'; ?>
     </div>
     <h4>Tracks</h4>
     <div>
