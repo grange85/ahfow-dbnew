@@ -46,7 +46,7 @@
                 $this->firephp->log('code:' . $message_code);
                 if ($message_code) {
                     ?>
-                    <h1>A Head Full of Wishes / 2012 survey</h1>
+                    <h1 class="survey">A Head Full of Wishes / 2013 survey</h1>
 
                     <div class="section2">
                         <?php
@@ -78,7 +78,7 @@
                     <div>
                         <form id="surveyform" action="<?php echo site_url('survey/process') ?>" method="post" class="clearfix">
                             <input type="hidden" id="frmId" name="frmId" value="<?php echo uniqid('ahfow' . (string) date("Y")); ?>" />
-                            <h1>A Head Full of Wishes / 2013 survey</h1>
+                            <h1 class="survey">A Head Full of Wishes / 2013 survey</h1>
 
                             <div class="section" id="about_you-section">
 
