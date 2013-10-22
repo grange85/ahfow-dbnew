@@ -78,7 +78,7 @@
                     <div>
                         <form id="surveyform" action="<?php echo site_url('survey/process') ?>" method="post" class="clearfix">
                             <input type="hidden" id="frmId" name="frmId" value="<?php echo uniqid('ahfow' . (string) date("Y")); ?>" />
-                            <h1>A Head Full of Wishes / 2012 survey</h1>
+                            <h1>A Head Full of Wishes / 2013 survey</h1>
 
                             <div class="section" id="about_you-section">
 
@@ -88,7 +88,7 @@
                                     <p><label for="frmName">Name (optional)</label>
                                         <input type="text" id="frmName" name="frmName" placeholder="Name (optional)" /></p>
                                     <p><label for="frmName">Email (optional)</label>
-                                        <input type="text" id="frmEmail" name="frmEmail" placeholder="Email address (optional)"</p>
+                                        <input type="text" id="frmEmail" name="frmEmail" placeholder="Email address (optional)" /></p>
                                     <p><label for="frmCountry">Age (optional)</label>
                                         <select id="frmAge" name="frmAge" placeholder="Select your age (optional)">
                                             <?php
