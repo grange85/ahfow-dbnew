@@ -53,8 +53,8 @@ class Survey extends MY_Controller {
         $args = func_get_args();
         $data = array();
         $i = 0;
-//        if ($this->input->cookie('ahfowsurvey'))
-  //          redirect('survey/completed/1');
+        if ($this->input->cookie('ahfowsurvey'))
+            redirect('survey/completed/1');
         foreach ($this->_surveyConfig as $artist) {
             $data['artists'][$i]['artist_details'] = $this->ahfow_database->get_artist_details($artist['artist_id']);
             $data['artists'][$i]['discography'] = $this->ahfow_database->get_discography($artist['artist_id'], $artist['albums']);
@@ -108,9 +108,10 @@ class Survey extends MY_Controller {
     public function view() {
         $args = func_get_args();
         $artists = array('galaxie_500' => 1, 'luna' => 2, 'damon_and_naomi' => 3, 'dean_and_britta' => 7);
-        if (!is_numeric($args[0])) {
+        if (!is_numeric($args[0]) || ($args[0] > SURVEY_CURRENT && $args[1] !== 'peek')) {
             redirect('survey/view/' . SURVEY_CURRENT);
         }
+        
         $args[0] = (is_numeric($args[0])) ? $args[0] : SURVEY_CURRENT;
 //        if ($args[0] < 2003 || $args[0] == 2011) {
 //            redirect('survey/noresults');
