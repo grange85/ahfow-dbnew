@@ -1,23 +1,13 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-// put your code here
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>A Head Full of Wishes: <?php echo $page_title; ?>
-
-
-
-        </title>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!DOCTYPE html>
+<head>
+	<title>A Head Full of Wishes - survey</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
-        <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/survey.css" type="text/css" />
+        <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/survey-form-new.css" type="text/css" />
 
 
         <script src="<?php echo STATIC_HOST; ?>/js/<?php echo JQUERY_LIBRARY; ?>" type="text/javascript"></script>
@@ -39,8 +29,8 @@
     </head>
 
     <body>
-        <div id="outer_container">
-            <div id="inner_container" class="clearfix">
+        <div id="survey-outer-container">
+            <div id="survey-inner-container">
 
                 <?php
                 $this->firephp->log('code:' . $message_code);
@@ -359,9 +349,9 @@
                                 <div class="section" id="<?php echo($artist['artist_details']->slug); ?>-section">
                                     <h3><?php echo($artist['artist_details']->display); ?></h3>
                                     <div>
-                                        <h4>Favourite <?php echo($artist['artist_details']->display); ?> album</h4>
-
-                                        <select id="<?php echo($artist['artist_details']->slug); ?>-albumvote" name="<?php echo($artist['artist_details']->slug); ?>-albumvote">
+										<div>
+                                    <h4>Favourite <?php echo($artist['artist_details']->display); ?> album</h4>
+                                        <select class="clearfix" id="<?php echo($artist['artist_details']->slug); ?>-albumvote" name="<?php echo($artist['artist_details']->slug); ?>-albumvote">
                                             <option>--select--</option>
                                             <?php
                                             foreach ($artist['discography']['Album'] as $album) {
@@ -369,7 +359,7 @@
                                             }
                                             ?>
                                         </select>
-
+</div>
                                         <div id="<?php echo($artist['artist_details']->slug); ?>-trackselect"  class="clearfix">
                                             <h4>Favourite <?php echo($artist['artist_details']->display); ?> track</h4>
                                             <p>Select up to five</p>
@@ -383,8 +373,8 @@
                                                 </select>
                                             </div>
                                             <div class="selectbuttons">
-                                                <p><input type="button" value="add -&gt;" id="<?php echo($artist['artist_details']->slug); ?>-trackadd" class='trackadd' /></p>
-                                                <p><input type="button" value="&lt;- remove" id="<?php echo($artist['artist_details']->slug); ?>-trackremove" class='trackremove' /></p>
+                                                <p><input type="button" value="add" id="<?php echo($artist['artist_details']->slug); ?>-trackadd" class='trackadd' />
+                                                <input type="button" value="remove" id="<?php echo($artist['artist_details']->slug); ?>-trackremove" class='trackremove' /></p>
                                                 <p id="<?php echo($artist['artist_details']->slug); ?>-messages" class="messages"></p>
                                             </div>
 
@@ -405,7 +395,7 @@
                             <div id="finish_up-section" class="section">
                                 <h3>Finish up</h3>
                                 <div>
-                                    <label for="frmComments">Comments</label>
+                                    <p><label for="frmComments">Comments</label></p>
                                     <textarea id="frmComments" name="frmComments" placeholder="Enter any comments here"></textarea>
                                     <table id="surveySummary">
                                         <caption>Summary</caption>
