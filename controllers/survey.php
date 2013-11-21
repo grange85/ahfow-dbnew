@@ -19,7 +19,7 @@ class Survey extends MY_Controller {
         array(
             'artist' => 'damon_and_naomi',
             'artist_id' => 3,
-            'albums' => array(72, 75, 77, 79, 157, 197, 238),
+            'albums' => array(72, 75, 77, 79, 157, 197, 214, 238),
         ),
         array(
             'artist' => 'dean_and_britta',
