@@ -548,10 +548,10 @@ class Ahfow_database extends MY_Model {
 
     function get_survey_results($artist_id, $year) {
 
-        $sqlalbums = 'SELECT s.album_id, a.album, x.display, count( s.album_id ) AS votes, ASIN, sleeve
+        $sqlalbums = 'SELECT s.album_id, r.album, x.display, count( s.volume_id ) AS votes, r.sleeve, r.wikipedia_url, r.bandcamp_id, r.amazon_us, r.mbid
                     FROM survey_albums s 
-                    INNER JOIN albums a ON s.album_id = a.album_id 
-                    INNER JOIN artists x ON x.artist_id = a.artist_id 
+        			INNER JOIN release_group r ON s.volume_id = r.volume_id
+                    INNER JOIN artists x ON x.artist_id = r.artist_id 
                     INNER JOIN new_survey_votes sv ON sv.vote_id = s.vote_id 
                     WHERE s.artist_id = ' . $artist_id . ' AND YEAR( sv.survey_year ) = \'' . $year . '\' 
                     GROUP BY ( s.album_id ) 
