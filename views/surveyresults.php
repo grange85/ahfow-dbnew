@@ -63,10 +63,10 @@ $(document).ready(function() {
 
 <body>
 	<div id="outer_container">
-		<div id="inner_container" class="clearfix">
+		<div id="inner_container">
 			<h1>A Head Full of Wishes / Survey results <?php echo $year; ?></h1>
 			<div id="survey_results_menu" class="clearfix">
-				<div id="survey_years_box"">
+				<div id="survey_years_box">
 					<select id="survey_results_years" onchange="changeyear();">
 					<?php
 						for($i = SURVEY_CURRENT; $i >= 2003; $i --) {
@@ -269,6 +269,8 @@ $(document).ready(function() {
 						}
 						?>
 					</div>
+				</div>
+				</div>
 				</div>
 				<?php
 				}
