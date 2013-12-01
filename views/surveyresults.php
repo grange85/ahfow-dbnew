@@ -6,16 +6,17 @@
 // put your code here
 $this->load->helper ( 'album_helper' );
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <title>A Head Full of Wishes: <?php echo $page_title; ?>
-<meta name="viewport" content="width=device-width" />
-<meta content="initial-scale = 1.0" name="viewport" />
 
 
         </title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 1.0" >
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+
 <link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css"
 	type="text/css" />
 <link rel="stylesheet"
