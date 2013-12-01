@@ -95,6 +95,26 @@ $(document).ready(function() {
 				<?php if ($year > 2002 && $year != 2011) { ?>
             	<div id="summary">
 					<h2>Summary</h2>
+					
+					<div class="results_summary tabs">
+                <?php
+                
+                
+                foreach ( $artists as $key => $value ) {
+
+			//$this->firephp->error("hello");
+//print_r($artist [$key])// ['artist_results'] ['albums']);
+
+
+?>
+					<div class="clearfix"><p><strong><?php echo $artist [$key] ['artist_results'] ['albums'] [0]->display;?></strong> : <em>Favourite album:</em> <?php echo $artist [$key] ['artist_results'] ['albums'] [0]->album;?> / <em>Favourite track:</em> <?php echo $artist [$key] ['artist_results'] ['tracks'] [0]->track;?></p></div>
+					
+					<?php 
+					}
+					?>
+					
+					</div>
+					
 					<div>
 						<div class='summary_section1 clearfix'>
 							<h3>Responses</h3>
@@ -150,7 +170,7 @@ $(document).ready(function() {
 								<img src="http://media.fullofwishes.co.uk/0<?php echo $artist[$key]['artist_details']->artist_id . '-' . $artist[$key]['artist_details']->slug; ?>/sleeves/<?php echo $result->sleeve; ?>" width="200" height="200" />
 								</div>
 								<div class="albumlinks">	
-								<?php if ($result->bandcamp_id):?>
+								<?php if ($result->bandcamp_id == 1):?>
 									<div class="bandcamp clearfix">
 											<iframe style="border: 0; width: 100%; height: 42px;"
 												src="http://bandcamp.com/EmbeddedPlayer/album=<?php echo $result->bandcamp_id; ?>/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/"
