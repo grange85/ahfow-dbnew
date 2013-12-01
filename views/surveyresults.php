@@ -10,7 +10,7 @@ $this->load->helper ( 'album_helper' );
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>A Head Full of Wishes: <?php echo $page_title; ?>
-
+<meta name="viewport" content="width=device-width" />
 
 
         </title>
