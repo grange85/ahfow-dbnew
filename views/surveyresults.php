@@ -11,6 +11,7 @@ $this->load->helper ( 'album_helper' );
 <head>
 <title>A Head Full of Wishes: <?php echo $page_title; ?>
 <meta name="viewport" content="width=device-width" />
+<meta content="initial-scale = 1.0" name="viewport" />
 
 
         </title>
