@@ -172,7 +172,7 @@ $(document).ready(function() {
 								<img src="http://media.fullofwishes.co.uk/0<?php echo $artist[$key]['artist_details']->artist_id . '-' . $artist[$key]['artist_details']->slug; ?>/sleeves/<?php echo $result->sleeve; ?>" width="200" height="200" />
 								</div>
 								<div class="albumlinks">	
-								<?php if ($result->bandcamp_id == 1):?>
+								<?php if ($result->bandcamp_id):?>
 									<div class="bandcamp clearfix">
 											<iframe style="border: 0; width: 100%; height: 42px;"
 												src="http://bandcamp.com/EmbeddedPlayer/album=<?php echo $result->bandcamp_id; ?>/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/"
