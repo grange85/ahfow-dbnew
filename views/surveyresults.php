@@ -64,7 +64,7 @@ $(document).ready(function() {
 <body>
 	<div id="outer_container">
 		<div id="inner_container">
-			<h1>A Head Full of Wishes / Survey results <?php echo $year; ?></h1>
+			<h1>A Head Full of Wishes Survey: <span><?php echo $year; ?></span></h1>
 			<div id="survey_results_menu" class="clearfix">
 				<div id="survey_years_box">
 					<select id="survey_results_years" onchange="changeyear();">
@@ -109,11 +109,11 @@ $(document).ready(function() {
 					</div>
 					
 					<div>
-						<div class="summary_section">
-							<h3>Responses</h3>
+						<div class="summary_section1 clearfix">
+							<h3>Responses</h3><p>
 							<?php
 								echo $survey_summary ['responses'];
-							?>
+							?></p>
 						</div>
 						<div class='summary_section'>
 							<h3>Ages</h3>
