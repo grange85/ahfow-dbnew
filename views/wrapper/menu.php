@@ -6,7 +6,6 @@ if (isset($artist_details)) {
     $bln_artist = FALSE;
 }
 ?>
-<div class="clearfix">
 <nav>
 <ul class="menu level0 clearfix">
     <li class="<?php echo is_active('home', $section); ?>"><p><a href="<?php echo site_url('database/'); ?>" title="Database home">Home</a></p></li>

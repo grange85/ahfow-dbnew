@@ -7,8 +7,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/reset.css" type="text/css" />
 		<link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/core.css" type="text/css" />
-		<link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/survey.css" type="text/css" />
+		<!-- link rel ="stylesheet" href="<?php echo STATIC_HOST; ?>/css/survey.css" type="text/css" / -->
 		<link rel="stylesheet" href="<?php echo STATIC_HOST; ?>/css/prettyPhoto.css" type="text/css" />
+
+<!--link rel="stylesheet"
+	href="<?php echo STATIC_HOST; ?>/css/survey-new.css" type="text/css" /-->
+
 
 
 		<script src="<?php echo STATIC_HOST; ?>/js/<?php echo JQUERY_LIBRARY; ?>" type="text/javascript"></script>
@@ -34,7 +38,7 @@
 
 
 			document.domain = window.location.hostname.replace('db.', '');
-			console.log(document.domain);
+//			console.log(document.domain);
 			tinyMCE.init({
 				language: 'en',
 				mode: 'specific_textareas',
@@ -66,7 +70,5 @@
 	<body>
 		<div id="outer_container">
 			<div id="inner_container">
-				<div id="header" class="clearfix">					
 					<h1><?php echo SITE_NAME; ?></h1>
-				</div>
 
