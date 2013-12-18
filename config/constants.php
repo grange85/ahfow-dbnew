@@ -58,7 +58,7 @@ define('DEFAULT_CACHE_LENGTH',20);
 define('MB_CACHE_LENGTH',3600);
 
 
-define('SURVEY_OPEN', true);
+define('SURVEY_OPEN', false);
 define('SURVEY_CURRENT', '2012');
 
 
