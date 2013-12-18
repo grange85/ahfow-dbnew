@@ -248,7 +248,7 @@ $(document).ready(function() {
 						if ($year < 2003) {	
 					?>
 						<p>Up until 2003 the survey was	carried out by folk emailing me in their votes and were compiled in a spreadsheet.</p>
-						<p>You can see all the results from 1995 until 2006 over here:</p>
+						<p>You can see all the results from 1995 until 2002 over here:</p>
 						<p><a href="https://docs.google.com/spreadsheet/ccc?key=0AvVnJzEnLB7fdDJLdWlfZkdIc2tfQTFRd1ROeXZ6N2c">A Head Full of Wishes survey results - 1995 - 2002</a></p>
 						<?php
 							} else {

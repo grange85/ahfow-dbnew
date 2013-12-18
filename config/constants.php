@@ -59,7 +59,7 @@ define('MB_CACHE_LENGTH',3600);
 
 
 define('SURVEY_OPEN', false);
-define('SURVEY_CURRENT', '2012');
+define('SURVEY_CURRENT', '2013');
 
 
 /* End of file constants.php */
